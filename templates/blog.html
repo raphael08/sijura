@@ -1,0 +1,149 @@
+{% load static %}
+{% include "includes/header.html" %}
+    <!-- END head -->
+
+    <section class="site-hero inner-page overlay" style="background-image: url({% static 'img/bg2.jpg' %});" data-stellar-background-ratio="0.5">
+      <div class="container">
+        <div class="row site-hero-inner justify-content-center align-items-center text-center">
+          <div class="col-md-10 text-center" data-aos="fade-up">
+            <h1 class="heading">News &amp; Events</h1>
+          </div>
+        </div>
+      </div>
+
+      <a class="mouse smoothscroll" href="#next">
+        <div class="mouse-icon">
+          <span class="mouse-wheel"></span>
+        </div>
+      </a>
+    </section>
+    <!-- END section -->
+
+    
+    
+    <section class="section bg-light post" id="next">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8">
+            <div class="row mb-5">
+              <div class="col-md-6">
+
+
+                {% for chambre in chambres %}
+              <div class="col-md-12">
+                <div class="media media-custom d-block mb-12">
+                  <a href="#" class="mb-12 d-block"><img src="{% static 'img/room1.jpg' %}" alt="Image placeholder" class="img-fluid"></a>
+                  <div class="">
+                    <span class="meta-post">May 3, 2021</span>
+                <h2><a href="#">Unwind with Your Family in our Luxury Services</a></h2>
+                  </div>
+                </div>
+              </div>
+                {% endfor %}
+
+
+            </div>
+
+           
+          </div>
+          <!-- END content -->
+          <div class="col-md-4">
+            <div class="row">
+
+              <div class="col-md-11 ml-auto">
+
+
+                <form action="#" class="sidebar-search">
+                  <div class="form-group">
+                    <span class="fa fa-search icon-search"></span>
+                    <input type="text" class="form-control search-input"  placeholder="Search...">
+                  </div>
+                </form>    
+
+                <div class="side-box">
+                  <h2 class="">Popular Post</h2>
+                  <ul class="post-list list-unstyled">
+                    <li>
+                      <a href="#" class="d-flex">
+                        <span class="mr-3 image"><img src="{% static 'img/room4.jpg' %}" alt="Image placeholder" class="img-fluid"></span>
+                        <div>
+                          <span class="meta">May 3, 2021</span>
+                          <h3>Unwind with Your Family in our Luxury Services</h3>
+                        </div>
+                      </a>
+                    </li>  
+                    <li>
+                      <a href="#" class="d-flex">
+                        <span class="mr-3 image"><img src="{% static 'img/room3.jpg' %}" alt="Image placeholder" class="img-fluid"></span>
+                        <div>
+                          <span class="meta">May 2, 2021</span>
+                          <h3>Unwind with Your Family in our Luxury Services</h3>
+                        </div>
+                      </a>
+                    </li>  
+                    
+                    <li>
+                      <a href="#" class="d-flex">
+                        <span class="mr-3 image"><img src="{% static 'img/room1.jpg' %}" alt="Image placeholder" class="img-fluid"></span>
+                        <div>
+                          <span class="meta">May 1, 2021</span>
+                          <h3>Unwind with Your Family in our Luxury Services</h3>
+                        </div>
+                      </a>
+                    </li>  
+                    <li>
+                      <a href="#" class="d-flex">
+                        <span class="mr-3 image"><img src="{% static 'img/room2.jpg' %}" alt="Image placeholder" class="img-fluid"></span>
+                        <div>
+                          <span class="meta">April 30, 2021</span>
+                          <h3>Unwind with Your Family in our Luxury Services</h3>
+                        </div>
+                      </a>
+                    </li>  
+                    <li>
+                      <a href="#" class="d-flex">
+                        <span class="mr-3 image"><img src="{% static 'img/room4.jpg' %}" alt="Image placeholder" class="img-fluid"></span>
+                        <div>
+                          <span class="meta">April 29, 2021</span>
+                          <h3>Unwind with Your Family in our Luxury Services</h3>
+                        </div>
+                      </a>
+                    </li>  
+                  </ul>
+                </div>
+
+                <div class="side-box">
+                  <h2 class="heading">Categories</h2>
+                  <ul class="post-categories list-unstyled">
+                    <li><a href="#">Events <span class="count">(12)</span></a></li>
+                    <li><a href="#">Resto bar <span class="count">(4)</span></a></li>
+                    <li><a href="#">Celebration <span class="count">(23)</span></a></li>
+                    <li><a href="#">Promos <span class="count">(8)</span></a></li>
+                  </ul>
+                </div>
+
+              </div>
+              
+
+             
+
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section class="section">
+      <div class="container" >
+        <div class="row align-items-center">
+          <div class="col-md-6" data-aos="fade-up">
+            <h2>Make Yourself Comfortable in Any of Our Fully Air-conditioned Rooms</h2>
+          </div>
+          <div class="col-md-6 text-right" data-aos="fade-up" data-aos-delay="200">
+            <a href="/Reservation" class="btn btn-success py-3 text-white px-5">Reserve Now</a>
+          </div>
+        </div>
+      </div>
+    </section>
+    {% include "includes/footer.html" %}

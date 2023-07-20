@@ -1,0 +1,66 @@
+{% load static %}
+{% static 'img' as baseUrl %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Sijura Lodge Reservation</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Mukta+Mahee:200,300,400|Playfair+Display:400,700" rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/animate.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/aos.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap-datepicker.css' %}">
+    <link rel="stylesheet" href="{% static 'css/jquery.timepicker.css' %}">
+    <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
+    
+    <link rel="stylesheet" href="{% static 'fonts/ionicons/css/ionicons.min.css' %}">
+    <link rel="stylesheet" href="{% static 'fonts/fontawesome/css/font-awesome.min.css' %}">
+
+    
+
+
+    <!-- Theme Style -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  </head>
+  <body>
+    
+    <header class="site-header">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-4 site-logo" data-aos="fade"><a href="/"><em>Sijura Lodge Reservation</em></a></div>
+          <div class="col-8">
+
+
+            <div class="site-menu-toggle js-site-menu-toggle"  data-aos="fade">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+            <!-- END menu-toggle -->
+
+            <div class="site-navbar js-site-navbar">
+              <nav role="navigation">
+                <div class="container">
+                  <div class="row full-height align-items-center">
+                    <div class="col-md-6 mx-auto text-center">
+                      <ul class="list-unstyled menu">
+                        <li><a href="/">Home</a></li>
+                        <li><a href="rooms/allRooms">Rooms</a></li>
+                        <li class="active"><a href="/About">About</a></li>
+                        {% comment %} <li><a href="/Blog">Events</a></li> {% endcomment %}
+                        <li><a href="/Contact">Contact</a></li>
+                        {% comment %} <li><a href="/Reservation">Reservation Form</a></li> {% endcomment %}
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
