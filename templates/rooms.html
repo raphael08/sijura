@@ -21,18 +21,211 @@
 
     
     <section class="section bg-light" id="next">
-
-      <div class="container">
-      {% for chambre in Chambres %}
-        <div class="site-block-half d-flex bg-white" data-aos="fade-up" data-aos-delay="100">
-          <a href="#"><img width="600px" height="400px" src='{{chambre.image.url}}'></a>
+      <style>
+        /* Base styles for the site block */
+        .site-block-half {
+          display: flex;
+          background-color: white;
+        }
+      
+        .site-block-half img {
+          width: 500px;
+          height: 300px;
+        }
+      
+        .text {
+          padding: 20px;
+        }
+      
+        .display-4 {
+          font-size: 2.5rem;
+        }
+      
+        .btn {
+          display: inline-block;
+          padding: 10px 20px;
+          font-size: 1.2rem;
+        }
+      
+        /* Responsive styles */
+        @media (max-width: 768px) {
+          .site-block-half {
+            flex-direction: column;
+          }
+          @media (max-width: 768px) {
+            .home-slider .slider-item {
+              width: 100%;
+              display: block;
+              margin: 0 auto;
+            }
+          }
+          .site-block-half img {
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+          }
+      
+          .display-4 {
+            font-size: 2rem;
+          }
+        }
+      </style>
+      <div class="container">   
+      {% for  cat in cat %}
+          {% if cat.id == 1  %}
+          <div class="site-block-half d-flex bg-white" data-aos="fade-up" data-aos-delay="100">
+          <a href="#"><img width="600px" height="400px" src='{{cat.image.url}}'></a>
           <div class="text">
-            <span class="d-block"><span class="display-4 text-primary">Tsh   {{ chambre.prix }}</span> / per night </span>
-            <h2>{{chambre.nom}}</h2>
-            <p class="lead">A {{chambre.nom}} is a room in a hotel that is more comfortable or has better amenities than other rooms. It is Tsh 30,000 for a standard room and Tsh 35,000 for a superior room. The superior rooms are larger than the standard rooms.</p>
-            <p><a href="#" class="btn btn-success text-white">Book Now</a></p>
+            <span class="d-block"><span class="display-4 text-primary">Tsh   {{ cat.price }}</span> / per night </span>
+            <h2>{{cat.name}}</h2>
+            <p class="lead">A {{cat.name}} is a room in a hotel that is more comfortable or has better amenities than other rooms and its only one which is Room 8 Tsh 35,000 for a {{cat.name}}. The {{cat.name}} are larger than the standard rooms.</p>
+            <h3>Available Rooms: {{room}}</h3>
+            {% if room != 0 %}
+            <p><button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModalCenter{{cat.id}}">
+              Book Now
+            </button></p>
+            {% endif %}
           </div>
         </div>
+            <!-- Modal -->
+<div class="modal fade" id="exampleModalCenter{{cat.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+        <div class="row">
+        
+          <div class="form-group col col-6">
+            <label for="recipient-name" class="col-form-label">Name:</label>
+            <input type="text" name="name" class="form-control" id="recipient-name" required>
+          </div>
+          
+          <div class="form-group col col-6">
+            <label for="message-text" class="col-form-label">Phone:</label>
+            <input type="text"  class="form-control" id="recipient-name" required>
+          </div>
+        
+        </div>
+
+        <div class="row">
+          <div class="form-group col col-6">
+            <label for="recipient-name" class="col-form-label">Email:</label>
+            <input type="email" name="name" class="form-control" id="recipient-name" >
+          </div>
+          <div class="form-group col col-6">
+            <label for="message-text" class="col-form-label">Room Number:</label>
+            <input type="text" class="form-control" id="recipient-name" value="8" disabled>
+          </div>        
+        </div>
+
+
+        <div class="row">
+          <div class="form-group col col-6">
+            <label for="recipient-name" class="col-form-label">staying days:</label>
+            <input type="number" name="days" min="1" max="30" value="1" class="form-control" id="recipient-name" required>
+          </div>
+          <div class="form-group col col-6">
+            <label for="message-text" class="col-form-label">Start Date:</label>
+            <input type="date" class="form-control" id="recipient-name" required>
+          </div>        
+        </div>
+    </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+          
+        {% else %}
+        <div class="site-block-half d-flex bg-white" data-aos="fade-up" data-aos-delay="100">
+          <a href="#"><img width="600px" height="400px" src='{{cat.image.url}}'></a>
+          <div class="text">
+            <span class="d-block"><span class="display-4 text-primary">Tsh   {{ cat.price }}</span> / per night </span>
+            <h2>{{cat.name}}</h2>
+            <p class="lead">A {{cat.name}} is a room in a hotel that is more comfortable but standard rooms fot  Tsh 30,000 for a {{cat.name}}. The {{cat.name}} are smaller than the Deluxe Rooms , and they are 9 rooms (1-7 ,9-10)  </p>
+            <h3>Available Rooms: {{rooms}}</h3>
+            <p><button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModalCenter">
+              Book Now
+            </button></p>
+          </div>
+        </div>
+        <!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+        <div class="row">
+        
+          <div class="form-group col col-6">
+            <label for="recipient-name" class="col-form-label">Name:</label>
+            <input type="text" name="name" class="form-control" id="recipient-name" required>
+          </div>
+          
+          <div class="form-group col col-6">
+            <label for="message-text" class="col-form-label">Phone:</label>
+            <input type="text"  class="form-control" id="recipient-name" required>
+          </div>
+        
+        </div>
+
+        <div class="row">
+        
+          <div class="form-group col col-6">
+            <label for="recipient-name" class="col-form-label">Email:</label>
+            <input type="text" name="name" class="form-control" id="recipient-name" >
+          </div>
+        
+          <div class="form-group col col-6">
+            <label for="message-text" class="col-form-label">Room Number:</label>
+            <select class="form-control" style="height:50px" id="recipient-name" required>
+              <option disabled selected value>select Room Number</option>
+              {% for rum in rum %}
+
+              <option class="form-control">Room {{rum.number}}</option>
+              {% endfor %}
+            </select>
+            {% comment %} <input type="text" class="form-control" id="recipient-name" required> {% endcomment %}
+          </div>
+        
+        
+        </div>
+
+        <div class="row">
+          <div class="form-group col col-6">
+            <label for="recipient-name" class="col-form-label">staying days:</label>
+            <input type="number" name="days" min="1" max="30" value="1" class="form-control" id="recipient-name" required>
+          </div>
+          <div class="form-group col col-6">
+            <label for="message-text" class="col-form-label">Start Date:</label>
+            <input type="date" class="form-control" id="recipient-name" required>
+          </div>        
+        </div>
+    </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+        {% endif %}
         {% endfor %}
     </section>
 
@@ -138,4 +331,12 @@
         </div>
       </div>
     </section>
+
+<!-- Button trigger modal -->
+
+
+
+
+
+    
     {% include "includes/footer.html" %}

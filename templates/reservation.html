@@ -25,7 +25,8 @@
         <div class="row">
           <div class="col-md-7" data-aos="fade-up" data-aos-delay="100">
             
-            <form action="#" method="post" class="bg-white p-md-5 p-4 mb-5 border">
+            <form action="/Reservation" method="POST" class="bg-white p-md-5 p-4 mb-5 border">
+             {%  csrf_token %} 
               <div class="row">
                 <div class="col-md-6 form-group">
                   <label class="text-black font-weight-bold" for="name">Name</label>
@@ -100,10 +101,10 @@
           </div>
           <div class="col-md-5" data-aos="fade-up" data-aos-delay="200">
             <div class="row">
-              <div class="col-md-10 ml-auto contact-info">
-                <p><span class="d-block">Address:</span> <span> Brgy. Enclaro, Binalbagan, Negros Occidental</span></p>
-                <p><span class="d-block">Phone:</span> <span>09123456789</span></p>
-                <p><span class="d-block">Email:</span> <span> myrel@gmail.com</span></p>
+             <div class="col-md-10 ml-auto contact-info">
+                <p><span class="d-block"><span class="ion-ios-location h5 mr-3 text-primary"></span>Address:</span> <span>Swaswa Ilazo-Mpakani (Dodoma,Tanzania)</span></p>
+                <p><span class="d-block"><span class="ion-ios-telephone h5 mr-3 text-primary"></span>Phone:</span> <span>0656569880</span></p>
+                <p><span class="d-block"><span class="ion-ios-email h5 mr-3 text-primary"></span>Email:</span> <span> sijuraLodge@gmail.com</span></p>
               </div>
             </div>
           </div>

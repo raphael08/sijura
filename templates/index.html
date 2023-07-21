@@ -117,18 +117,69 @@ In addition to prioritizing your security, we understand the importance of simpl
             </p>
           </div>
         </div>
-         {% for chambre in chambres %}
-             {% if chambre.disponibilité %}
-        <div class="site-block-half d-flex bg-white" data-aos="fade-up" data-aos-delay="100">
-          <a href="#"><img width="500px" height="300px" src='{{chambre.image.url}}'></a>
-          <div class="text">
-            <span class="d-block"><span class="display-4 text-success">Tsh {{chambre.prix}}</span> / per night </span>
-            <h2>{{ chambre.nom }}</h2>
-            <p class="lead">{{ chambre.description }}</p>
-            <p><a href="/Reservation" class="btn btn-success text-white">Book Now</a></p>
-          </div>
-        </div>
-             {% endif %}
+         {% for cat in cat %}
+             
+             <style>
+              /* Base styles for the site block */
+              .site-block-half {
+                display: flex;
+                background-color: white;
+              }
+            
+              .site-block-half img {
+                width: 500px;
+                height: 300px;
+              }
+            
+              .text {
+                padding: 20px;
+              }
+            
+              .display-4 {
+                font-size: 2.5rem;
+              }
+            
+              .btn {
+                display: inline-block;
+                padding: 10px 20px;
+                font-size: 1.2rem;
+              }
+            
+              /* Responsive styles */
+              @media (max-width: 768px) {
+                .site-block-half {
+                  flex-direction: column;
+                }
+                @media (max-width: 768px) {
+                  .home-slider .slider-item {
+                    width: 100%;
+                    display: block;
+                    margin: 0 auto;
+                  }
+                }
+                .site-block-half img {
+                  width: 100%;
+                  max-width: 500px;
+                  height: auto;
+                }
+            
+                .display-4 {
+                  font-size: 2rem;
+                }
+              }
+            </style>
+            
+            <div class="site-block-half d-flex bg-white" data-aos="fade-up" data-aos-delay="100">
+              <a href="#"><img src="{{cat.image.url}}" alt="{{cat.Name}}"></a>
+              <div class="text">
+                <span class="d-block"><span class="display-4 text-success">Tsh {{cat.price}}</span> / per night</span>
+                <h2>{{ cat.Name }}</h2>
+                <p class="lead">{{ cat.description }}</p>
+                <p><a href="/Reservation" class="btn btn-success text-white">Book Now</a></p>
+              </div>
+            </div>
+            
+          
         {% endfor %}
 
         <div class="row justify-content-center text-center mt-5" data-aos="fade-up" data-aos-delay="300">
@@ -145,25 +196,62 @@ In addition to prioritizing your security, we understand the importance of simpl
             <p class="lead" data-aos="fade-up" data-aos-delay="100">In the same way, an effective campaign for your property will showcase its unique story. Images or videos of your luxurious offerings are a good way to catch viewers’ eyes.</p>
           </div>
         </div>
-        <div class="row">
-          <div class="col-md-12">
-            <div class="home-slider major-caousel owl-carousel mb-5" data-aos="fade-up" data-aos-delay="200">
-                {% for catalogue in catalogues %}
-                
-              <div class="slider-item" style="height:600px; position:relative">
-                
-                <img style="position:absolute; top:0; left:0; object-fit:cover   " src="{{catalogue.image.url}}" alt="Image placeholder" class="img-fluid">
-              </div>
+        <div class="container"> <!-- Wrap the content inside a container for better responsiveness -->
+<style>
+  /* Custom CSS to adjust the slider height and image scaling */
+.home-slider .slider-item {
+  width: 100%;
+  height: 100%;
+}
+
+.home-slider .slider-item img,
+.home-slider .slider-item video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+</style>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="home-slider major-caousel owl-carousel mb-5" data-aos="fade-up" data-aos-delay="200">
+          
+                {% for gal in gallery %}
+                <div class="slider-item">
+                  <div class="d-flex justify-content-center align-items-center" style="height: 500px;">
+                    {% if ".mp4" in gal.file.url %}
+                    <video autoplay muted loop class="img-fluid" style="width: 100%; height: 100%;">
+                      <source src="{{gal.file.url}}">
+                    </video>
+                    {% else %}
+                    <img style="object-fit: cover; width: 100%; height: 100%;" src="{{gal.file.url}}" alt="Image placeholder" class="img-fluid">
+                    {% endif %}
+                  </div>
+                </div>
                 {% endfor %}
-                <video  autoplay muted loop class="img-fluid"><source src="{% static 'img/sijura/sijura.mp4' %}"></video>
-
+          
+                {% comment %} <div class="slider-item">
+                  <div class="d-flex justify-content-center align-items-center" style="height: 500px;">
+                    <video autoplay muted loop class="img-fluid" style="width: 100%; height: 100%;">
+                      <source src="{% static 'img/sijura/sijura.mp4' %}">
+                    </video>
+                  </div>
+                </div> {% endcomment %}
+          
+              </div>
+              <!-- END slider -->
             </div>
-            <!-- END slider -->
           </div>
-
-          <div class="col-md-12 text-center"><a href="#" class="">View More Photos</a></div>
-
+          
+        
+          <div class="row">
+            <div class="col-md-12 text-center">
+              <a href="#" class="">View More Photos</a>
+            </div>
+          </div>
+        
         </div>
+        
       </div>
     </section>
     <!-- END section -->

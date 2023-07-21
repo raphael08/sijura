@@ -177,6 +177,54 @@ textarea.form-control {
       .site-hero-inner .sub-heading {
         font-size: 18px; } }
 
+ /* Base styles for the site block */
+ .site-block-half {
+  display: flex;
+  background-color: white;
+}
+
+.site-block-half img {
+  width: 500px;
+  height: 300px;
+}
+
+.text {
+  padding: 20px;
+}
+
+.display-4 {
+  font-size: 2.5rem;
+}
+
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 1.2rem;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .site-block-half {
+    flex-direction: column;
+  }
+  @media (max-width: 768px) {
+    .home-slider .slider-item {
+      width: 100%;
+      display: block;
+      margin: 0 auto;
+    }
+  }
+  .site-block-half img {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+  }
+
+  .display-4 {
+    font-size: 2rem;
+  }
+}
+
 .inner-page .site-hero-inner {
   height: 50vh;
   min-height: 700px; }

@@ -1,6 +1,10 @@
 from django.contrib import admin
-from .models import Chambre,Catalogue,Testimonial
+from .models import *
 # Register your models here.
-admin.site.register(Chambre)
-admin.site.register(Catalogue)
-admin.site.register(Testimonial)
+admin.site.register(Categories)
+admin.site.register(Rooms)
+admin.site.register(Gallery)
+admin.site.register(Reservation)
+admin.site.register(Booking)
+admin.site.register(Billing)
+admin.site.register(Debt)
