@@ -45,7 +45,7 @@ from django.db import models
 #     =+amount
 #     =+debt 
 import datetime
-today = datetime.datetime.now().strftime("%Y-%M-%d %H:%M:%S")
+today = datetime.datetime.now().date().strftime("%Y-%m-%d")
 
 class Categories(models.Model):
     Name = models.CharField(max_length=100)
@@ -74,7 +74,7 @@ class Reservation(models.Model):
     Email = models.EmailField(max_length=40,null=True,blank=True)
     room = models.ForeignKey(Rooms,on_delete=models.CASCADE)
     days_of_staying = models.IntegerField(default=0)
-    Date_Check_In = models.DateTimeField(today)
+    Date_Check_In = models.DateField(default=today)
     Date_Check_Out  = models.DateField(blank=True,null=True) 
     Check_Out = models.BooleanField(default=False)
     
@@ -90,7 +90,7 @@ class Booking(models.Model):
     Email = models.EmailField(max_length=40)
     room = models.ForeignKey(Rooms,on_delete=models.CASCADE)
     days_of_staying = models.IntegerField(default=0)
-    Date_Check_In = models.DateTimeField(today)
+    Date_Check_In = models.DateField(today)
     Date_Check_Out  = models.DateField(blank=True,null=True) 
     booking_code = models.CharField(max_length=100,null=True,blank=True)
     
