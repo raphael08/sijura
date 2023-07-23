@@ -10,6 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
+from django.contrib.messages import constants as messages
+from decouple import config
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -55,8 +57,7 @@ ROOT_URLCONF = 'Hotel.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')]
-        ,
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -106,8 +107,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'sijuralodge@gmail.com'
-EMAIL_HOST_PASSWORD = 'xcbkmbfqwqchuuxh'  #password for allowed for two-factor authentication..
+EMAIL_HOST_USER = config('email')
+# password for allowed for two-factor authentication..
+EMAIL_HOST_PASSWORD = config('password')
 EMAIL_USE_TLS = True
 
 # Internationalization
@@ -135,9 +137,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
 
-from django.contrib.messages import constants as messages
-
-
 MESSAGE_TAGS = {
     messages.DEBUG: 'alert alert-info',
     messages.INFO: 'alert alert-info',
@@ -147,7 +146,4 @@ MESSAGE_TAGS = {
 }
 
 
-
-#EMAILS CONFIGURATIONS.
-
-
+# EMAILS CONFIGURATIONS.
