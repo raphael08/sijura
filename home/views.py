@@ -140,9 +140,9 @@ def booking(request):
     
     if rooms:
         subject = "📑 BOOKING CONFIRMATION 📑"
-        body = f"Hellow {name} \n🏨 WELCOME TO SIJURA LODGE 🏨 \n🙏 THANKS FOR BOOKING ROOM NO.{room}🛌 \n🔑 YOUR CONFIRMATION CODE IS {code} 🔑  \n⚠️ keep safe the confirmation code for your booking as it will be used later⚠️ \n🙏THANK YOU AND WELCOME AGAIN 😊"
+        body = f"Hellow {str(name).upper()} \n🏨 WELCOME TO SIJURA LODGE 🏨 \n🙏 THANKS FOR BOOKING ROOM NO.{room}🛌 \n🔑 YOUR CONFIRMATION CODE IS {code} 🔑 \n⚠️ KEEP IT SAFE FOR IT WILL BE NEEDED LATER FOR YOUR BOOKING CONFIRMATION⚠️ \n🙏THANK YOU AND WELCOME AGAIN 😊"
         send_email(subject,body,email)
-        messages.success(request,'Booked Successful Check your Phone for the confimation code ⚠️ dont loose the code ite Important')
+        messages.success(request,'Booked Successful Check your Email  to see your booking code ⚠️ dont loose the code ite Important')
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
  except Exception as e:
      messages.error(request,e)
