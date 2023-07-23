@@ -70,17 +70,22 @@ class Rooms(models.Model):
     
 class Reservation(models.Model):
     Name = models.CharField(max_length=20)
-    Phone = models.IntegerField(default=0)
+    Phone = models.CharField(max_length=20)
     Email = models.EmailField(max_length=40,null=True,blank=True)
     room = models.ForeignKey(Rooms,on_delete=models.CASCADE)
     days_of_staying = models.IntegerField(default=0)
     Date_Check_In = models.DateField(default=today)
     Date_Check_Out  = models.DateField(blank=True,null=True) 
+    booking_code = models.CharField(max_length=100,null=True,blank=True)
+    booked_on = models.DateField(default=today,blank=True,null=True)
+    reserved_on = models.DateField(blank=True,null=True)
     Check_Out = models.BooleanField(default=False)
-    
+    check_out_on = models.DateField(blank=True,null=True)
+    cancel_book = models.BooleanField(default=False)
+    cancel_book_on = models.DateField(blank=True,null=True)
     def __str__(self):
         
-        return self.Name
+        return str(self.room.number)
     
 
 class Booking(models.Model):

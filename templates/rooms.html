@@ -1,7 +1,7 @@
 {% load static %}
 {% include "includes/header.html" %}
     <!-- END head -->
-
+    {% include "includes/messages.html" %} 
     <section class="site-hero inner-page overlay" style="background-image: url({% static 'img/sijura/sijura3.jpg' %})" data-stellar-background-ratio="0.5">
       <div class="container">
         <div class="row site-hero-inner justify-content-center align-items-center text-center">
@@ -21,6 +21,7 @@
 
     
     <section class="section bg-light" id="next">
+        
       <style>
         /* Base styles for the site block */
         .site-block-half {
@@ -98,49 +99,54 @@
         </button>
       </div>
       <div class="modal-body">
-        <form>
-        <div class="row">
-        
-          <div class="form-group col col-6">
-            <label for="recipient-name" class="col-form-label">Name:</label>
-            <input type="text" name="name" class="form-control" id="recipient-name" required>
-          </div>
+        <form action="/book" method='POST'>
+          {% csrf_token %}
+          <div class="row">
           
-          <div class="form-group col col-6">
-            <label for="message-text" class="col-form-label">Phone:</label>
-            <input type="text"  class="form-control" id="recipient-name" required>
+            <div class="form-group col col-6">
+              <label for="recipient-name" class="col-form-label">Name:</label>
+              <input type="text" name="name" class="form-control" id="recipient-name" required>
+            </div>
+            
+            <div class="form-group col col-6">
+              <label for="message-text" class="col-form-label">Phone:</label>
+              <input type="text" name="phone" class="form-control" id="recipient-name" required>
+            </div>
+          
           </div>
-        
-        </div>
-
-        <div class="row">
-          <div class="form-group col col-6">
-            <label for="recipient-name" class="col-form-label">Email:</label>
-            <input type="email" name="name" class="form-control" id="recipient-name" >
-          </div>
-          <div class="form-group col col-6">
+  
+          <div class="row">
+          
+            <div class="form-group col col-6">
+              <label for="recipient-name" class="col-form-label">Email:</label>
+              <input type="text" name="email" class="form-control" id="recipient-name" >
+            </div>
+            <div class="form-group col col-6">
             <label for="message-text" class="col-form-label">Room Number:</label>
-            <input type="text" class="form-control" id="recipient-name" value="8" disabled>
+            <input type="text" class="form-control"  value="8" disabled>
+            <input type="text" class="form-control" name="room" value="8" hidden>
           </div>        
-        </div>
+          </div>
 
 
         <div class="row">
           <div class="form-group col col-6">
             <label for="recipient-name" class="col-form-label">staying days:</label>
-            <input type="number" name="days" min="1" max="30" value="1" class="form-control" id="recipient-name" required>
+            <input type="number" name="days" min="1" max="30" value="1" class="form-control" name="days" id="recipient-name" required>
           </div>
           <div class="form-group col col-6">
             <label for="message-text" class="col-form-label">Start Date:</label>
-            <input type="date" class="form-control" id="recipient-name" required>
+            <input type="date" class="form-control" id="recipient-name" name="checkin" required>
           </div>        
         </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Save changes</button>
+        </div>
+        
     </form>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
+     
     </div>
   </div>
 </div>
@@ -169,7 +175,8 @@
         </button>
       </div>
       <div class="modal-body">
-        <form>
+        <form action="/book" method='POST'>
+        {% csrf_token %}
         <div class="row">
         
           <div class="form-group col col-6">
@@ -179,7 +186,7 @@
           
           <div class="form-group col col-6">
             <label for="message-text" class="col-form-label">Phone:</label>
-            <input type="text"  class="form-control" id="recipient-name" required>
+            <input type="text" name="phone" class="form-control" id="recipient-name" required>
           </div>
         
         </div>
@@ -188,16 +195,16 @@
         
           <div class="form-group col col-6">
             <label for="recipient-name" class="col-form-label">Email:</label>
-            <input type="text" name="name" class="form-control" id="recipient-name" >
+            <input type="text" name="email" class="form-control" id="recipient-name" required>
           </div>
         
           <div class="form-group col col-6">
             <label for="message-text" class="col-form-label">Room Number:</label>
-            <select class="form-control" style="height:50px" id="recipient-name" required>
+            <select class="form-control" name="room" style="height:50px" required>
               <option disabled selected value>select Room Number</option>
               {% for rum in rum %}
 
-              <option class="form-control">Room {{rum.number}}</option>
+              <option class="form-control" value="{{rum.number}}">Room {{rum.number}}</option>
               {% endfor %}
             </select>
             {% comment %} <input type="text" class="form-control" id="recipient-name" required> {% endcomment %}
@@ -209,19 +216,20 @@
         <div class="row">
           <div class="form-group col col-6">
             <label for="recipient-name" class="col-form-label">staying days:</label>
-            <input type="number" name="days" min="1" max="30" value="1" class="form-control" id="recipient-name" required>
+            <input type="number" name="days" min="1" max="30" value="1" class="form-control" name="days" id="recipient-name" required>
           </div>
           <div class="form-group col col-6">
             <label for="message-text" class="col-form-label">Start Date:</label>
-            <input type="date" class="form-control" id="recipient-name" required>
+            <input type="date" class="form-control" id="recipient-name" name="checkin" required>
           </div>        
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Save changes</button>
         </div>
     </form>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
+      
     </div>
   </div>
 </div>

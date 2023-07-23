@@ -102,6 +102,14 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'sijuralodge@gmail.com'
+EMAIL_HOST_PASSWORD = 'xcbkmbfqwqchuuxh'  #password for allowed for two-factor authentication..
+EMAIL_USE_TLS = True
+
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
@@ -125,3 +133,21 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
+
+
+from django.contrib.messages import constants as messages
+
+
+MESSAGE_TAGS = {
+    messages.DEBUG: 'alert alert-info',
+    messages.INFO: 'alert alert-info',
+    messages.SUCCESS: 'alert alert-success',
+    messages.WARNING: 'alert alert-warning',
+    messages.ERROR: 'alert alert-danger',
+}
+
+
+
+#EMAILS CONFIGURATIONS.
+
+

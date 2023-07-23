@@ -1,0 +1,681 @@
+{% load static %}
+{% include "includes/header.html" %}
+    <!-- END head -->
+    {% include "includes/messages.html" %} 
+    <section class="site-hero inner-page overlay" style="background-image: url({% static 'img/sijura/sijura3.jpg' %})" data-stellar-background-ratio="0.5">
+      <div class="container">
+        <div class="row site-hero-inner justify-content-center align-items-center text-center">
+          <div class="col-md-10 text-center" data-aos="fade-up">
+            <h1 class="heading">Our Rooms</h1>
+          </div>
+        </div>
+      </div>
+
+      <a class="mouse smoothscroll" href="#next">
+        <div class="mouse-icon">
+          <span class="mouse-wheel"></span>
+        </div>
+      </a>
+    </section>
+    <!-- END section -->
+    <div>
+    <section class="section bg-light" id="next">
+        
+      <style>
+        /* Base styles for the site block */
+        .site-block-half {
+          display: flex;
+          background-color: white;
+        }
+      
+        .site-block-half img {
+          width: 500px;
+          height: 300px;
+        }
+      
+        .text {
+          padding: 20px;
+        }
+      
+        .display-4 {
+          font-size: 2.5rem;
+        }
+      
+        .btn {
+          display: inline-block;
+          padding: 10px 20px;
+          font-size: 1.2rem;
+        }
+      
+        /* Responsive styles */
+        @media (max-width: 768px) {
+          .site-block-half {
+            flex-direction: column;
+          }
+          @media (max-width: 768px) {
+            .home-slider .slider-item {
+              width: 100%;
+              display: block;
+              margin: 0 auto;
+            }
+          }
+          .site-block-half img {
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+          }
+      
+          .display-4 {
+            font-size: 2rem;
+          }
+        }
+      </style>
+      <div class="container">   
+      {% for  cat in cat %}
+          {% if cat.id == 1  %}
+          <div class="site-block-half d-flex bg-white" data-aos="fade-up" data-aos-delay="100">
+          <a href="#"><img width="600px" height="400px" src='{{cat.image.url}}'></a>
+          <div class="text">
+            <span class="d-block"><span class="display-4 text-primary">Tsh   {{ cat.price }}</span> / per night </span>
+            <h2>{{cat.name}}</h2>
+            <p class="lead">A {{cat.name}} is a room in a hotel that is more comfortable or has better amenities than other rooms and its only one which is Room 8 Tsh 35,000 for a {{cat.name}}. The {{cat.name}} are larger than the standard rooms.</p>
+            <h3>Available Rooms: {{room}}</h3>
+            {% if room != 0 %}
+            <p><button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModalCenters{{cat.id}}">
+              Book Now
+            </button></p>
+            {% endif %}
+          </div>
+        </div>
+            <!-- Modal -->
+<div class="modal fade" id="exampleModalCenters{{cat.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="/book" method='POST'>
+          {% csrf_token %}
+          <div class="row">
+          
+            <div class="form-group col col-6">
+              <label for="recipient-name" class="col-form-label">Name:</label>
+              <input type="text" name="name" class="form-control" id="recipient-name" required>
+            </div>
+            
+            <div class="form-group col col-6">
+              <label for="message-text" class="col-form-label">Phone:</label>
+              <input type="text" name="phone" class="form-control" id="recipient-name" required>
+            </div>
+          
+          </div>
+  
+          <div class="row">
+          
+            <div class="form-group col col-6">
+              <label for="recipient-name" class="col-form-label">Email:</label>
+              <input type="text" name="email" class="form-control" id="recipient-name" >
+            </div>
+            <div class="form-group col col-6">
+            <label for="message-text" class="col-form-label">Room Number:</label>
+            <input type="text" class="form-control"  value="8" disabled>
+            <input type="text" class="form-control" name="room" value="8" hidden>
+          </div>        
+          </div>
+
+
+        <div class="row">
+          <div class="form-group col col-6">
+            <label for="recipient-name" class="col-form-label">staying days:</label>
+            <input type="number" name="days" min="1" max="30" value="1" class="form-control" name="days" id="recipient-name" required>
+          </div>
+          <div class="form-group col col-6">
+            <label for="message-text" class="col-form-label">Start Date:</label>
+            <input type="date" class="form-control" id="recipient-name" name="checkin" required>
+          </div>        
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Save changes</button>
+        </div>
+        
+    </form>
+      </div>
+     
+    </div>
+  </div>
+</div>
+          
+        {% else %}
+        <div class="site-block-half d-flex bg-white" data-aos="fade-up" data-aos-delay="100">
+          <a href="#"><img width="600px" height="400px" src='{{cat.image.url}}'></a>
+          <div class="text">
+            <span class="d-block"><span class="display-4 text-primary">Tsh   {{ cat.price }}</span> / per night </span>
+            <h2>{{cat.name}}</h2>
+            <p class="lead">A {{cat.name}} is a room in a hotel that is more comfortable but standard rooms fot  Tsh 30,000 for a {{cat.name}}. The {{cat.name}} are smaller than the Deluxe Rooms , and they are 9 rooms (1-7 ,9-10)  </p>
+            <h3>Available Rooms: {{rooms}}</h3>
+            <p><button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModalCenter">
+              Book Now
+            </button></p>
+          </div>
+        </div>
+        <!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="/book" method='POST'>
+        {% csrf_token %}
+        <div class="row">
+        
+          <div class="form-group col col-6">
+            <label for="recipient-name" class="col-form-label">Name:</label>
+            <input type="text" name="name" class="form-control" id="recipient-name" required>
+          </div>
+          
+          <div class="form-group col col-6">
+            <label for="message-text" class="col-form-label">Phone:</label>
+            <input type="text" name="phone" class="form-control" id="recipient-name" required>
+          </div>
+        
+        </div>
+
+        <div class="row">
+        
+          <div class="form-group col col-6">
+            <label for="recipient-name" class="col-form-label">Email:</label>
+            <input type="text" name="email" class="form-control" id="recipient-name" >
+          </div>
+        
+          <div class="form-group col col-6">
+            <label for="message-text" class="col-form-label">Room Number:</label>
+            <select class="form-control" name="room" style="height:50px" required>
+              <option disabled selected value>select Room Number</option>
+              {% for rum in rum %}
+
+              <option class="form-control" value="{{rum.number}}">Room {{rum.number}}</option>
+              {% endfor %}
+            </select>
+            {% comment %} <input type="text" class="form-control" id="recipient-name" required> {% endcomment %}
+          </div>
+        
+        
+        </div>
+
+        <div class="row">
+          <div class="form-group col col-6">
+            <label for="recipient-name" class="col-form-label">staying days:</label>
+            <input type="number" name="days" min="1" max="30" value="1" class="form-control" name="days" id="recipient-name" required>
+          </div>
+          <div class="form-group col col-6">
+            <label for="message-text" class="col-form-label">Start Date:</label>
+            <input type="date" class="form-control" id="recipient-name" name="checkin" required>
+          </div>        
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Save changes</button>
+        </div>
+    </form>
+      </div>
+      
+    </div>
+  </div>
+</div>
+        {% endif %}
+        {% endfor %}
+    </section>
+  </div>
+   
+    <!-- END section -->
+    <section class="section bg-light">
+<div>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-7 mx-auto text-center mb-5">
+            <h2 class="heading">Check Availabilty</h2>
+          </div>
+        </div>
+        <div class="row">
+          <div class="block-32">
+
+            {% comment %} <form action="#"> {% endcomment %}
+              <div class="row">
+                <div class="col-md-6 mb-3 mb-lg-0 col-lg-3">
+                  <label for="checkin_date" class="font-weight-bold text-black">Check In</label>
+                  <div class="field-icon-wrap">
+                    <div class="icon"><span class="icon-calendar"></span></div>
+                    <input type="text" id="checkin_date" class="form-control">
+                  </div>
+                </div>
+                <div class="col-md-6 mb-3 mb-lg-0 col-lg-3">
+                  <label for="checkout_date" class="font-weight-bold text-black">Check Out</label>
+                  <div class="field-icon-wrap">
+                    <div class="icon"><span class="icon-calendar"></span></div>
+                    <input type="text" id="checkout_date" class="form-control">
+                  </div>
+                </div>
+                <div class="col-md-6 col-lg-3 align-self-end">
+                  <button id="check" class="btn btn-success btn-block text-white">Check Availabilty</button>
+                </div>
+              </div>
+            {% comment %} </form> {% endcomment %}
+          </div>
+
+        </div>
+      
+        <style>
+          /* Modal styles */
+          .modalx {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0, 0, 0); /* Fallback color */
+            background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+          }
+        
+          /* Modal content */
+          .modal-contentx {
+            background-color: #fefefe;
+            margin: 15% auto; /* 15% from the top and centered */
+            padding: 20px;
+            border: 1px solid #888;
+            max-height: 80%; /* Maximum height of the modal content */
+            overflow-y: auto; /* Enable vertical scrolling when content exceeds max-height */
+            width: 80%; /* Could be more or less, depending on screen size */
+          }
+        
+          /* Close button */
+          .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+          }
+        
+          .close:hover,
+          .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+          }
+
+
+          .card {
+            width: 50px;
+            height: 50px;
+            margin: 5px; /* Adjust this value to control the space between cards */
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+          }
+        
+          .card-content {
+            color: white;
+            text-align: center;
+          }
+        
+          /* Flexbox container for the cards */
+          .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center; /* Align cards in the center horizontally */
+          }
+        </style>
+
+        <style>
+          /* Modal styles */
+          .modals {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0, 0, 0); /* Fallback color */
+            background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+          }
+        
+          /* Modal content */
+          .modal-contents {
+            background-color: #fefefe;
+            margin: 15% auto; /* 15% from the top and centered */
+            padding: 20px;
+            border: 1px solid #888;
+            max-height: 80%; /* Maximum height of the modal content */
+            overflow-y: auto; /* Enable vertical scrolling when content exceeds max-height */
+            width: 80%; /* Could be more or less, depending on screen size */
+          }
+        
+          /* Close button */
+          .closes {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+          }
+        
+          .closes:hover,
+          .closes:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+          }
+
+
+          .card {
+            width: 50px;
+            height: 50px;
+            margin: 5px; /* Adjust this value to control the space between cards */
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+          }
+        
+          .card-content {
+            color: white;
+            text-align: center;
+          }
+        
+          /* Flexbox container for the cards */
+          .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center; /* Align cards in the center horizontally */
+          }
+        </style>
+
+
+        <div class="row">
+          <div class="block-32">
+
+            {% comment %} <form action="#"> {% endcomment %}
+              <div class="row">
+                <div class="col-md-12 mb-6 mb-lg-0 col-lg-6">
+                  <label for="checkin_date" class="font-weight-bold text-black">Book Code</label>
+                  <div class="field-icon-wrap">
+                    <div class="icon"><span class="icon-calendar"></span></div>
+                    <input type="text" id="checkin_dates" class="form-control">
+                  </div>
+                </div>
+               
+                <div class="col-md-6 col-lg-3 align-self-end">
+                  <button id="checks" class="btn btn-success btn-block text-white">Check You Book</button>
+                </div>
+              </div>
+            {% comment %} </form> {% endcomment %}
+          </div>
+
+        </div> 
+
+
+        <div id="myModal" class="modalx">
+          <!-- Modal content -->
+          <div class="modal-contentx">
+            <span class="close">&times;</span>
+            <div class="modal-body">
+              <!-- Content to display in the modal -->
+              <div class="reserve"></div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- The Modal -->
+<div id="myModals" class="modals">
+  <!-- Modal content -->
+  <div class="modal-contents">
+    <span class="closes">&times;</span>
+    <div class="modal-bodys">
+      <!-- Content to display in the modal -->
+      <div class="reserves"></div>
+    </div>
+  </div>
+</div>
+
+      </div>
+    </section>
+
+<!-- Button trigger modal -->
+<script>
+     
+  document.getElementById('checks').addEventListener("click",function (){
+    let f = document.getElementById('checkin_dates');
+    
+    console.log(f.value)
+
+    let d = document.querySelector('.reserves');
+
+     
+    fetch(`/verify/${f.value}`).then(function (response){
+      return response.json().then(
+        function(data){
+          console.log(data.status)
+          d.innerHTML = ''; // Clear previous content before adding new cards
+
+      // Create a container for the cards
+      var cardContainer = document.createElement("div");
+      var a = document.createElement("a");
+      
+      var btn = document.createElement("button");
+      cardContainer.classList.add("card-container");
+      if (data.status === 'No record'){
+        
+        var card = document.createElement("div");
+        //card.classList.add("card");
+        //card.style.backgroundColor = "blue";
+
+        //var cardContent = document.createElement("div");
+        //cardContent.classList.add("card-content");
+        card.innerHTML = `<h3>${data.status}</h3>`;
+
+        // Append content to the card
+        //card.appendChild(cardContent);
+
+        // Append the card to the container
+        //cardContainer.appendChild(card);
+        //btn.classList.add("btn-success");
+        //btn.innerHTML = 'Book Now';
+          
+          //a.appendChild(btn);
+          d.appendChild(card);
+          //d.appendChild(a);
+          const modal = document.getElementById("myModals");
+          const closeButton = document.getElementsByClassName("closes")[0];
+
+          modal.style.display = "block";
+
+          // Close the modal when the close button is clicked
+          closeButton.onclick = function () {
+            modal.style.display = "none";
+          };
+          window.onclick = function (event) {
+            if (event.target == modal) {
+              modal.style.display = "none";
+            }
+          };
+      }else{
+        a.href = `/cancel_book/${data.status[0]}`;
+          //for(i=0; i < data.status.length; i++){
+            console.log(data.status[0]);
+           // var card = document.createElement("div");
+       // card.classList.add("card");
+        //card.style.backgroundColor = "blue";
+        
+        // Create content for the card
+        var cardContent = document.createElement("div");
+        //cardContent.classList.add("card-content");
+        cardContent.innerHTML = `<table margin="auto" border="1">
+          <tr>
+            <td><b>Name</b></td>
+            <td><b>Email</b></td>
+            <td><b>Room number</b></td>
+            <td><b>Checkin</b></td>
+            <td><b>Checkout</b></td>
+          </tr>
+          <tr>
+            <td style="color:blue; font-size:29px"><b>${data.status[3]}</b></td>
+            <td style="color:blue; font-size:29px"><b>${data.status[4]}</b></td>
+            <td style="color:blue; font-size:29px; text-align:center"><b>${data.status[5]}</b></td>
+            <td style="color:blue; font-size:29px"><b>${data.status[6]}</b></td>
+            <td style="color:blue; font-size:29px"><b>${data.status[7]}</b></td>
+          </tr>
+        </table>`;
+
+        // Append content to the card
+        //card.appendChild(cardContent);
+
+        // Append the card to the container
+        //cardContainer.appendChild(card);
+           
+           
+          
+        
+          btn.classList.add("btn-success");
+          btn.innerHTML = 'Cencell';
+          
+          a.appendChild(btn);
+          d.appendChild(cardContent);
+          d.appendChild(a);
+          const modal = document.getElementById("myModals");
+          const closeButton = document.getElementsByClassName("closes")[0];
+
+          modal.style.display = "block";
+
+          // Close the modal when the close button is clicked
+          closeButton.onclick = function () {
+            modal.style.display = "none";
+          };
+          window.onclick = function (event) {
+            if (event.target == modal) {
+              modal.style.display = "none";
+            }
+          };
+        };
+        });
+    });
+  
+  });
+</script>
+
+
+<script>
+   //  check
+  document.getElementById('check').addEventListener("click",function (){
+    let f = document.getElementById('checkin_date');
+    
+    const dates =  new Date(f.value);
+
+    const day = dates.getDate();
+    const month = (dates.getMonth()+1).toString().padStart(2,"0");
+    const year = dates.getFullYear();
+
+    const start = `${year}-${month}-${day}`;
+
+    console.log(start);
+    let e = document.getElementById('checkout_date');
+
+
+    const datex =  new Date(e.value);
+    
+    const dayx = datex.getDate();
+    const monthx = (datex.getMonth()+1).toString().padStart(2,"0");
+    const yearx = datex.getFullYear();
+
+    const end= `${yearx}-${monthx}-${dayx}`;
+    console.log(end);
+    let d = document.querySelector('.reserve');
+   
+  if(f.value==="" && f.value===""){
+    f.value = "date is required";
+    e.value = "date is required";
+    f.style.color = "red";
+    e.style.color = "red";
+
+  }else{
+    f.value = "";
+    e.value ="";
+
+
+
+    fetch(`/df/${start}/${end}`).then(function (response){
+      return response.json().then(
+        function(data){
+          
+          d.innerHTML = ''; // Clear previous content before adding new cards
+
+      // Create a container for the cards
+      var cardContainer = document.createElement("div");
+      var a = document.createElement("a");
+      a.href = "/rooms";
+      var btn = document.createElement("button");
+      cardContainer.classList.add("card-container");
+          for(i=0; i < data.status.length; i++){
+            console.log(data.status[i]);
+            var card = document.createElement("div");
+        card.classList.add("card");
+        card.style.backgroundColor = "blue";
+
+        // Create content for the card
+        var cardContent = document.createElement("div");
+        cardContent.classList.add("card-content");
+        cardContent.innerHTML = `<h3>${data.status[i]}</h3>`;
+
+        // Append content to the card
+        card.appendChild(cardContent);
+
+        // Append the card to the container
+        cardContainer.appendChild(card);
+           
+           
+          }
+          btn.classList.add("btn-success");
+          btn.innerHTML = 'Book Now';
+          
+          a.appendChild(btn);
+          d.appendChild(cardContainer);
+          d.appendChild(a);
+          const modal = document.getElementById("myModal");
+          const closeButton = document.getElementsByClassName("close")[0];
+
+          modal.style.display = "block";
+
+          // Close the modal when the close button is clicked
+          closeButton.onclick = function () {
+            modal.style.display = "none";
+          };
+          window.onclick = function (event) {
+            if (event.target == modal) {
+              modal.style.display = "none";
+            }
+          };
+        });
+    });
+  }
+  });
+    
+ 
+
+
+</script>
+
+    
+    {% include "includes/footer.html" %}

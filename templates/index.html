@@ -252,7 +252,7 @@ In addition to prioritizing your security, we understand the importance of simpl
                 <span class="d-block"><span class="display-4 text-success">Tsh {{cat.price}}</span> / per night</span>
                 <h2>{{ cat.Name }}</h2>
                 <p class="lead">{{ cat.description }}</p>
-                <p><a href="/Reservation" class="btn btn-success text-white">Book Now</a></p>
+                {% comment %} <p><a href="/Reservation" class="btn btn-success text-white">Book Now</a></p> {% endcomment %}
               </div>
             </div>
             
@@ -260,7 +260,7 @@ In addition to prioritizing your security, we understand the importance of simpl
         {% endfor %}
 
         <div class="row justify-content-center text-center mt-5" data-aos="fade-up" data-aos-delay="300">
-          <div class="col-md-4"><p><a href="rooms/allRooms" class="btn btn-success text-white py-3 px-5">View All Rooms</a></p></div>
+          <div class="col-md-4"><p><a href="/rooms" class="btn btn-success text-white py-3 px-5">View All Rooms</a></p></div>
         </div>
       </div>
     </section>
@@ -415,10 +415,10 @@ In addition to prioritizing your security, we understand the importance of simpl
           <div class="col-md-6" data-aos="fade-up">
             <h2>Make Yourself Comfortable in Any of Our Fully Air-conditioned Rooms</h2>
           </div>
-          <div class="col-md-6 text-right" data-aos="fade-up" data-aos-delay="200">
+          {% comment %} <div class="col-md-6 text-right" data-aos="fade-up" data-aos-delay="200">
             <a href="/Reservation" class="btn btn-success py-3 text-white px-5">Reserve Now</a>
             <p class="reserve"></p>
-          </div>
+          </div> {% endcomment %}
         </div>
       </div>
     </section>

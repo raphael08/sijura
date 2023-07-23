@@ -1,2 +1,5 @@
-account_sids = "AC9c11bc458238082b91fa9f099b18d374"
-auth_tokens = "880985f45dbc4173a5e9791800c53273"
+body = "🏨 WELCOME TO SIJURA LODGE 🏨 \n🙏 THANKS FOR BOOKING ROOM NO.🛌 \n🔑 YOUR CONFIRMATION CODE IS🔑  \n⚠️ keep safe the confirmation code for your booking as it will be used later⚠️ \n🙏THANK YOU AND WELCOME AGAIN 😊"
+
+print(body)
+
+    
