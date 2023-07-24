@@ -10,22 +10,57 @@ from django.contrib import messages
 from django.core.mail import send_mail
 from django.conf import settings 
 
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import render_to_string
 
+from django.utils.html import strip_tags
+from email.mime.image import MIMEImage
+image1_path = 'static/img/sijura/sijura1.jpg'
+image2_path = 'static/img/sijura/sijura22.png'
 
-
-def send_email(subject,message,to_mail):
-    subject=subject
-    message=message
-    from_email = settings.EMAIL_HOST_USER
+def send_email(to_mail,sub,html,context):
+    # subject=subject
+    # message=message
+    # from_email = settings.EMAIL_HOST_USER
     
-    recepient_list = [to_mail]
+    # recepient_list = [to_mail]
 
-    send_mail(subject,message,from_email,recepient_list)
+    # send_mail(subject,message,from_email,recepient_list)
+    with open(image1_path, 'rb') as f1, open(image2_path, 'rb') as f2:
+        image1_data = f1.read()
+        image2_data = f2.read()
+    
+    year = datetime.datetime.now().date().year
+    html_context = render_to_string(html,context)
+
+    text_context = strip_tags(html_context)
+    email=EmailMultiAlternatives(
+        sub,
+        text_context,
+        settings.EMAIL_HOST_USER,
+        [to_mail]
+        )
+    email.attach_alternative(html_context,'text/html')
+    image1 = MIMEImage(image1_data)
+    image1.add_header('Content-ID', '<image_id1>')
+    email.attach(image1)
+
+    # Attach the second image as inline attachment and reference it in the HTML using cid
+    image2 = MIMEImage(image2_data)
+    image2.add_header('Content-ID', '<image_id2>')
+    email.attach(image2)
+
+    
+    email.send()
     
 
 def verify(request,code):
   try:
+   
+    
     resev = list(Reservation.objects.filter(booking_code=code,Check_Out=False,room__booked=True).values_list('id','Phone','days_of_staying','Name','Email','room__number','Date_Check_In','Date_Check_Out'))
+    
+    
     if len(resev) <=0:
         return JsonResponse({'status':'No record'})
     else:
@@ -139,9 +174,11 @@ def booking(request):
         messages.error(request,e)
     
     if rooms:
-        subject = "📑 BOOKING CONFIRMATION 📑"
-        body = f"Hellow {str(name).upper()} \n🏨 WELCOME TO SIJURA LODGE 🏨 \n🙏 THANKS FOR BOOKING ROOM NO.{room}🛌 \n🔑 YOUR CONFIRMATION CODE IS {code} 🔑 \n⚠️ KEEP IT SAFE FOR IT WILL BE NEEDED LATER FOR YOUR BOOKING CONFIRMATION⚠️ \n🙏THANK YOU AND WELCOME AGAIN 😊 \n"
-        send_email(subject,body,email)
+        sub = "📑 BOOKING CONFIRMATION 📑"
+        html = 'email.html'
+        context= {'name':str(name).upper(),'code':code,'year':year,'room':room}
+        
+        send_email(email,sub,html,context)
         messages.success(request,'Booked Successful Check your Email  to see your booking code ⚠️ dont loose the code its Important')
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
  except Exception as e:
