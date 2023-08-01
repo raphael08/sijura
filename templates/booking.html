@@ -130,8 +130,8 @@
 
         <div class="row">
           <div class="form-group col col-6">
-            <label for="recipient-name" class="col-form-label">staying days:</label>
-            <input type="number" name="days" min="1" max="30" value="1" class="form-control" name="days" id="recipient-name" required>
+            <label for="recipient-name" class="col-form-label">Amount Paid:</label>
+            <input type="number" name="days" min="0" max="35000" class="form-control" name="price" id="recipient-name" placeholder="Pesa aliolipa" required>
           </div>
           <div class="form-group col col-6">
             <label for="message-text" class="col-form-label">Start Date:</label>
@@ -214,8 +214,8 @@
 
         <div class="row">
           <div class="form-group col col-6">
-            <label for="recipient-name" class="col-form-label">staying days:</label>
-            <input type="number" name="days" min="1" max="30" value="1" class="form-control" name="days" id="recipient-name" required>
+            <label for="recipient-name" class="col-form-label">Amount Paid:</label>
+            <input type="number" name="days" min="0" max="30000" class="form-control" name="price" id="recipient-name" placeholder="Pesa aliolipa" required>
           </div>
           <div class="form-group col col-6">
             <label for="message-text" class="col-form-label">Start Date:</label>
@@ -301,15 +301,15 @@
           }
         
           /* Close button */
-          .close {
+          .closex {
             color: #aaa;
-            float: right;
+            float: left;
             font-size: 28px;
             font-weight: bold;
           }
         
-          .close:hover,
-          .close:focus {
+          .closex:hover,
+          .closex:focus {
             color: black;
             text-decoration: none;
             cursor: pointer;
@@ -381,27 +381,6 @@
           }
 
 
-          .card {
-            width: 50px;
-            height: 50px;
-            margin: 5px; /* Adjust this value to control the space between cards */
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-          }
-        
-          .card-content {
-            color: white;
-            text-align: center;
-          }
-        
-          /* Flexbox container for the cards */
-          .card-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center; /* Align cards in the center horizontally */
-          }
         </style>
 
 
@@ -427,19 +406,20 @@
 
         </div> 
 
-
+<div>
         <div id="myModal" class="modalx">
           <!-- Modal content -->
           <div class="modal-contentx">
-            <span class="close">&times;</span>
-            <div class="modal-body">
+            <span class="closex">&times;</span>
+            <div class="modal-bodyx">
               <!-- Content to display in the modal -->
-              <div class="reserve"></div>
+              <div class="reservex"></div>
             </div>
           </div>
         </div>
+      </div>
         
-        <!-- The Modal -->
+  <div>      <!-- The Modal -->
 <div id="myModals" class="modals">
   <!-- Modal content -->
   <div class="modal-contents">
@@ -454,13 +434,113 @@
       </div>
     </section>
 
+
+    <script>
+      //  check
+     document.getElementById('check').addEventListener("click",function (){
+       let f = document.getElementById('checkin_date');
+       
+       const dates =  new Date(f.value);
+   
+       const day = dates.getDate();
+       const month = (dates.getMonth()+1).toString().padStart(2,"0");
+       const year = dates.getFullYear();
+   
+       const start = `${year}-${month}-${day}`;
+   
+       console.log(start);
+       let e = document.getElementById('checkout_date');
+   
+   
+       const datex =  new Date(e.value);
+       
+       const dayx = datex.getDate();
+       const monthx = (datex.getMonth()+1).toString().padStart(2,"0");
+       const yearx = datex.getFullYear();
+   
+       const end= `${yearx}-${monthx}-${dayx}`;
+       console.log(end);
+       let d = document.querySelector('.reservex');
+      
+     if(f.value==="" && f.value===""){
+       f.value = "date is required";
+       e.value = "date is required";
+       f.style.color = "red";
+       e.style.color = "red";
+   
+     }else{
+       f.value = "";
+       e.value ="";
+       fetch(`/df/${start}/${end}`).then(function (response){
+         return response.json().then(
+           function(data){
+             
+             d.innerHTML = ''; // Clear previous content before adding new cards
+   
+         // Create a container for the cards
+         var cardContainer = document.createElement("div");
+         var a = document.createElement("a");
+         a.href = "/rooms";
+         var btn = document.createElement("button");
+         cardContainer.classList.add("card-container");
+             for(i=0; i < data.status.length; i++){
+               console.log(data.status[i]);
+               var card = document.createElement("div");
+           card.classList.add("card");
+           card.style.backgroundColor = "blue";
+   
+           // Create content for the card
+           var cardContent = document.createElement("div");
+           cardContent.classList.add("card-content");
+           cardContent.innerHTML = `<h3>${data.status[i]}</h3>`;
+   
+           // Append content to the card
+           card.appendChild(cardContent);
+   
+           // Append the card to the container
+           cardContainer.appendChild(card);
+              
+              
+             }
+             btn.classList.add("btn-success");
+             btn.innerHTML = 'Book Now';
+             
+             a.appendChild(btn);
+             d.appendChild(cardContainer);
+             d.appendChild(a);
+             const modal = document.getElementById("myModal");
+             const closeButton = document.getElementsByClassName("closex");
+             
+             modal.style.display = "block";
+             
+             // Close the modal when the close button is clicked
+             closeButton.onclick = function () {
+              
+               modal.style.display = "none";
+             };
+             window.onclick = function (event) {
+               if (event.target == modal) {
+                 modal.style.display = "none";
+               }
+             };
+           });
+       });
+     }
+     });
+       
+    
+   
+   
+   </script>
+
+
 <!-- Button trigger modal -->
 <script>
      
   document.getElementById('checks').addEventListener("click",function (){
     let f = document.getElementById('checkin_dates');
     
-    console.log(f.value)
+    console.log(f.value);
 
     let d = document.querySelector('.reserves');
 
@@ -468,7 +548,7 @@
     fetch(`/verify/${f.value}`).then(function (response){
       return response.json().then(
         function(data){
-          console.log(data.status)
+          console.log(data.status);
           d.innerHTML = ''; // Clear previous content before adding new cards
 
       // Create a container for the cards
@@ -549,8 +629,8 @@
            
           
         
-          btn.classList.add("btn-success");
-          btn.innerHTML = 'Cencell';
+          //btn.classList.add("btn-success");
+          //btn.innerHTML = 'Cancell';
           
           a.appendChild(btn);
           d.appendChild(cardContent);
@@ -577,105 +657,7 @@
 </script>
 
 
-<script>
-   //  check
-  document.getElementById('check').addEventListener("click",function (){
-    let f = document.getElementById('checkin_date');
-    
-    const dates =  new Date(f.value);
 
-    const day = dates.getDate();
-    const month = (dates.getMonth()+1).toString().padStart(2,"0");
-    const year = dates.getFullYear();
-
-    const start = `${year}-${month}-${day}`;
-
-    console.log(start);
-    let e = document.getElementById('checkout_date');
-
-
-    const datex =  new Date(e.value);
-    
-    const dayx = datex.getDate();
-    const monthx = (datex.getMonth()+1).toString().padStart(2,"0");
-    const yearx = datex.getFullYear();
-
-    const end= `${yearx}-${monthx}-${dayx}`;
-    console.log(end);
-    let d = document.querySelector('.reserve');
-   
-  if(f.value==="" && f.value===""){
-    f.value = "date is required";
-    e.value = "date is required";
-    f.style.color = "red";
-    e.style.color = "red";
-
-  }else{
-    f.value = "";
-    e.value ="";
-
-
-
-    fetch(`/df/${start}/${end}`).then(function (response){
-      return response.json().then(
-        function(data){
-          
-          d.innerHTML = ''; // Clear previous content before adding new cards
-
-      // Create a container for the cards
-      var cardContainer = document.createElement("div");
-      var a = document.createElement("a");
-      a.href = "/rooms";
-      var btn = document.createElement("button");
-      cardContainer.classList.add("card-container");
-          for(i=0; i < data.status.length; i++){
-            console.log(data.status[i]);
-            var card = document.createElement("div");
-        card.classList.add("card");
-        card.style.backgroundColor = "blue";
-
-        // Create content for the card
-        var cardContent = document.createElement("div");
-        cardContent.classList.add("card-content");
-        cardContent.innerHTML = `<h3>${data.status[i]}</h3>`;
-
-        // Append content to the card
-        card.appendChild(cardContent);
-
-        // Append the card to the container
-        cardContainer.appendChild(card);
-           
-           
-          }
-          btn.classList.add("btn-success");
-          btn.innerHTML = 'Book Now';
-          
-          a.appendChild(btn);
-          d.appendChild(cardContainer);
-          d.appendChild(a);
-          const modal = document.getElementById("myModal");
-          const closeButton = document.getElementsByClassName("close")[0];
-
-          modal.style.display = "block";
-
-          // Close the modal when the close button is clicked
-          closeButton.onclick = function () {
-            modal.style.display = "none";
-          };
-          window.onclick = function (event) {
-            if (event.target == modal) {
-              modal.style.display = "none";
-            }
-          };
-        });
-    });
-  }
-  });
-    
- 
-
-
-</script>
 
     
     {% include "includes/footer.html" %}
