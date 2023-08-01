@@ -6,3 +6,4 @@ vonage
 requests
 dj_database_url
 psycopg2
+pillow
