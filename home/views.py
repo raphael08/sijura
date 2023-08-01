@@ -200,19 +200,20 @@ def rooms(request):
     l = Reservation.objects.filter(Q(reserved=True) | Q(booked=True)).values_list('room_id',flat=True)
     roo = Rooms.objects.exclude(id=8).exclude(id__in=l).count()
     k = list(Reservation.objects.filter(Q(Q(reserved=True) | Q(booked=True)) & Q(Q(Date_Check_In__lte=today) & Q(Date_Check_Out__gte=today) & Q(Check_Out=False))).values_list('room_id',flat=True))
-    print(k)
+    m =list(Reservation.objects.filter(Q(Date_Check_Out__gte=today) & Q(Date_Check_In__lte=today) & Q(Q(booked=True) |Q(reserved=True))).values_list('room__number',flat=True))
+    print(m)
     # n = list(Reservation.objects.filter(Q(Q(reserved=True) | Q(booked=True)) & Q(Q(Date_Check_In__lte=today))).values_list('room_id',flat=True))
     # print(n)
-    rooms = Rooms.objects.exclude(exclude=True).exclude(id=8).exclude(id__in=k).count()
+    rooms = Rooms.objects.exclude(exclude=True).exclude(id=8).exclude(id__in=m).count()
     
-    if 8 in k:
+    if 8 in m:
         print('***********')
         room =0
     else:
         room =1
     # room = Reservation.objects.filter(room_id=8).count()
     cat = Categories.objects.all()
-    rum = Rooms.objects.exclude(exclude=True).exclude(id=8).exclude(id__in=k)
+    rum = Rooms.objects.exclude(exclude=True).exclude(id=8).exclude(id__in=m)
     return render (request, 'rooms.html',{'rooms':rooms,'cat':cat,'room':room,'rum':rum})
 
 
