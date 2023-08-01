@@ -262,7 +262,7 @@ def booking(request):
     except Exception as e:
         messages.error(request,e)
     
-    if rooms:
+    if reserv:
         sub = "📑 BOOKING CONFIRMATION 📑"
         html = 'email.html'
         context= {'name':str(name).upper(),'code':code,'year':year,'room':room}
