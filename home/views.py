@@ -201,6 +201,8 @@ def rooms(request):
     roo = Rooms.objects.exclude(id=8).exclude(id__in=l).count()
     k = list(Reservation.objects.filter(Q(Q(reserved=True) | Q(booked=True)) & Q(Q(Date_Check_In__lte=today) & Q(Date_Check_Out__gte=today) & Q(Check_Out=False))).values_list('room_id',flat=True))
     print(k)
+    # n = list(Reservation.objects.filter(Q(Q(reserved=True) | Q(booked=True)) & Q(Q(Date_Check_In__lte=today))).values_list('room_id',flat=True))
+    # print(n)
     rooms = Rooms.objects.exclude(exclude=True).exclude(id=8).exclude(id__in=k).count()
     
     if 8 in k:
