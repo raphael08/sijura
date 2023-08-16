@@ -4,4 +4,5 @@ from .models import *
 
 
 admin.site.register(Expenses)
-admin.site.register(Sells)
+admin.site.register(Salary)
+admin.site.register(EmailSent)

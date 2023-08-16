@@ -88,7 +88,7 @@
           </div>
         </div>
             <!-- Modal -->
-<div class="modal fade" id="exampleModalCenters{{cat.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade" id="exampleModalCenters{{rooms.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -120,7 +120,7 @@
               <label for="recipient-name" class="col-form-label">Email:</label>
               <input type="text" name="email" class="form-control" id="recipient-name" >
             </div>
-            <div class="form-group col col-6">
+              <div class="form-group col col-6">
             <label for="message-text" class="col-form-label">Room Number:</label>
             <input type="text" class="form-control"  value="8" disabled>
             <input type="text" class="form-control" name="room" value="8" hidden>
@@ -129,18 +129,22 @@
 
 
         <div class="row">
-          <div class="form-group col col-6">
-            <label for="recipient-name" class="col-form-label">Amount Paid:</label>
-            <input type="number" name="days" min="0" max="35000" class="form-control" name="price" id="recipient-name" placeholder="Pesa aliolipa" required>
-          </div>
+          {% comment %} <div class="form-group col col-6">
+            <label for="recipient-name" class="col-form-label">A:</label>
+            <input type="number" name="days" class="form-control" name="price" id="recipient-name" placeholder="Pesa aliolipa" required>
+          </div> {% endcomment %}
           <div class="form-group col col-6">
             <label for="message-text" class="col-form-label">Start Date:</label>
             <input type="date" class="form-control" id="recipient-name" name="checkin" required>
-          </div>        
+          </div>     
+          <div class="form-group col col-6">
+            <label for="message-text" class="col-form-label">End Date:</label>
+            <input type="date" class="form-control" id="recipient-name" name="checkout" required>
+          </div>    
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary">Save changes</button>
+          <button type="submit" class="btn btn-primary">Book</button>
         </div>
         
     </form>

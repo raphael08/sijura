@@ -66,6 +66,19 @@
                                             {% comment %} {% endif %} {% endcomment %}
                                             {% endfor %}
                                             <td>
+                                                <button type="button" class="btn btn-primary mb-1 float-right" data-toggle="modal" data-target="#smallmodalz{{user.id}}" >
+                                                    <i class="fa fa-key"></i>
+                                                </button>
+                                                {% if user.is_active == True %}
+                                                <button type="button" class="btn btn-success mb-1 float-right" data-toggle="modal" data-target="#smallmodals{{user.id}}" >
+                                                    <i class="fa fa-lock"></i>
+                                                </button> 
+                                                {% else %}
+                                                <button type="button" class="btn btn-warning mb-1 float-right" data-toggle="modal" data-target="#smallmodals{{user.id}}" >
+                                                    <i class="fa fa-unlock"></i>
+                                                </button> 
+                                                {% endif %}
+                                                
                                                 <button type="button" class="btn btn-danger mb-1 float-right" data-toggle="modal" data-target="#smallmodal{{user.id}}" >
                                                     <i class="fa fa-trash"></i>
                                                 </button> 
@@ -206,8 +219,76 @@
                         </div>
                     </div>
                 </div>
-    
+                <div class="modal fade" id="smallmodals{{user.id}}" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-sm" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="smallmodalLabel">Block Staff</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            {% if user.is_active == True %}
+                            <div class="modal-body">
+                                <p>
+                                    Are you Sure YOu want to Block {{user.first_name}}
+                                </p>
+                            </div>
+                            
+                            <form action="/uaa/blockuser/{{user.id}}">
+                                {% csrf_token %}
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                <button type="submit" class="btn btn-danger">Block</button>
+                            </div>
+                        </form>
+                        {% else %}
+                        <div class="modal-body">
+                            <p>
+                                Are you Sure You want to UnBlock {{user.first_name}}
+                            </p>
+                        </div>
+                        <form action="/uaa/unblockuser/{{user.id}}">
+                            {% csrf_token %}
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-danger">UnBlock</button>
+                        </div>
+                    </form>
+                        {% endif %}
+                        </div>
+                    </div>
+                </div>
 
+
+                
+
+
+
+                <div class="modal fade" id="smallmodalz{{user.id}}" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-sm" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="smallmodalLabel">Delete Staff</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p>
+                                    Are you Sure Reset Password for {{user.first_name}}
+                                </p>
+                            </div>
+                            <form action="/uaa/reset_password/{{user.id}}">
+                                {% csrf_token %}
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                <button type="submit" class="btn btn-danger">reset</button>
+                            </div>
+                        </form>
+                        </div>
+                    </div>
+                </div>
 
                 {% endfor %}
     </div><!-- /#right-panel -->

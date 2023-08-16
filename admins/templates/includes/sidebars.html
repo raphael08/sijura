@@ -39,21 +39,27 @@
                         </ul>
                     </li>
                     <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Tables</a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-bed"></i>Resevations</a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li><i class="fa fa-table"></i><a href="tables-basic.html">Basic Table</a></li>
-                            <li><i class="fa fa-table"></i><a href="tables-data.html">Data Table</a></li>
+                          
+                            <li><i class="fa fa-bed"></i><a href="/admins/reservations">Available Rooms</a></li>
+                            <li><i class="fa fa-bed"></i><a href="/admins/reserve-record">Reservation Records</a></li>
+                              <li><i class="fa fa-bed"></i><a href="/admins/booking_record">Booking Records</a></li>
+                              
+                           
                         </ul>
                     </li>
                     <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-th"></i>Forms</a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-money"></i>Billing</a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li><i class="menu-icon fa fa-th"></i><a href="forms-basic.html">Basic Form</a></li>
-                            <li><i class="menu-icon fa fa-th"></i><a href="forms-advanced.html">Advanced Form</a></li>
+                            <li><i class="menu-icon fa fa-th"></i><a href="/admins/billing">Billing</a></li>
+                            <li><i class="menu-icon fa fa-th"></i><a href="/admins/expense">Expenses</a></li>
+                            <li><i class="fa fa-book"></i><a href="/admins/reserved-rooms">Payment Record</a></li>
+                            {% comment %} <li><i class="menu-icon fa fa-th"></i><a href="forms-advanced.html">Balance</a></li> {% endcomment %}
                         </ul>
                     </li>
 
-                    <h3 class="menu-title">Icons</h3><!-- /.menu-title -->
+                    {% comment %} <h3 class="menu-title">Icons</h3><!-- /.menu-title -->
 
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-tasks"></i>Icons</a>
@@ -89,8 +95,9 @@
                             <li><i class="menu-icon fa fa-sign-in"></i><a href="page-register.html">Register</a></li>
                             <li><i class="menu-icon fa fa-paper-plane"></i><a href="pages-forget.html">Forget Pass</a></li>
                         </ul>
-                    </li>
+                    </li> {% endcomment %}
                 </ul>
             </div><!-- /.navbar-collapse -->
         </nav>
     </aside>
+    {% include 'includes/message.html' %}

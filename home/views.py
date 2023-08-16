@@ -5,7 +5,7 @@ from .models import *
 from admins.models import *
 from django.db.models import Q,F
 # Create your views here.
-from .send_sms import *
+
 import random
 from django.contrib import messages
 from django.core.mail import send_mail
@@ -18,7 +18,7 @@ from django.db.models.functions import ExtractMonth
 from django.utils.html import strip_tags
 from email.mime.image import MIMEImage
 import requests
-
+from django.contrib.auth.models import User
 
 
 image1_path = 'static/img/sijura/sijura1.jpg'
@@ -61,6 +61,7 @@ def send_email(to_mail,sub,html,context):
 
 def send_sms(phone,sms):
     
+   try:
     url = 'http://smsportal.imartgroup.co.tz/app/smsapi/index.php'
     phone_number = phone
     
@@ -74,7 +75,8 @@ def send_sms(phone,sms):
                     'msg' : sms,
     }
     p = requests.post(url,data=params)
-
+   except:
+       print('error')
 
 
 def verify(request,code):
@@ -205,7 +207,7 @@ def rooms(request):
     # n = list(Reservation.objects.filter(Q(Q(reserved=True) | Q(booked=True)) & Q(Q(Date_Check_In__lte=today))).values_list('room_id',flat=True))
     # print(n)
     rooms = Rooms.objects.exclude(exclude=True).exclude(id=8).exclude(id__in=m).count()
-    
+     
     if 8 in m:
         print('***********')
         room =0
@@ -250,28 +252,38 @@ def booking(request):
     price = Rooms.objects.get(number=room)
     price = price.category.price
     checkin = request.POST.get('checkin')
+    check_out = request.POST.get('checkout')
     year,month,day = str(checkin).split('-')
     checkin = datetime.datetime(int(year),int(month),int(day)).date()
     day = datetime.timedelta(days=1)
     checkout = checkin+day
-    print(name,phone,room,email,checkin,checkout)
+    #print(name,phone,room,email,checkin,checkout)
     code = generate_code()
-    try:
-        reserv = Reservation.objects.create(Name=name,Phone=int(phone),Email=email,room_id=room,Date_Check_In=checkin,Date_Check_Out=checkout,booking_code=code,booked=True)
-        
-        
-    except Exception as e:
-        messages.error(request,e)
+   
+    r = list(Reservation.objects.filter(Q(Date_Check_Out__gte=checkin) & Q(Date_Check_In__lte=check_out) & Q(Q(booked=True) |Q(reserved=True))).values_list('room__number',flat=True))
     
-    if reserv:
-        sub = "📑 BOOKING CONFIRMATION 📑"
-        html = 'email.html'
-        context= {'name':str(name).upper(),'code':code,'year':year,'room':room}
-        message = f'{name} \nWELCOME TO SIJURA LODGE\nTHANK YOU FOR YOU BOOKING ON ROOM {room}\nYOUR BOOKING CODE IS {code}\n KEEP IN SAFE\nWelcome to Sijura Lodge\nCome,Stay and Enjoy'
-        send_email(email,sub,html,context)
-        send_sms(phone[1:],message)
-        messages.success(request,'Booked Successful Check your Email  to see your booking code ⚠️ dont loose the code its Important')
+    print(r)
+   
+    if int(room) in r:
+        messages.error(request,"No room on that day choose another room")
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    else:
+       
+        Reservation.objects.create(Name=name,Phone=phone,Email=email,room_id=room,Date_Check_In=checkin,Date_Check_Out=check_out,booking_code=code,booked=True,view_booked=True)
+
+        if True:
+            sub = "📑 BOOKING CONFIRMATION 📑"
+            html = 'email.html'
+            context= {'name':str(name).upper(),'code':code,'year':year,'room':room}
+            message = f'{name} \nWELCOME TO SIJURA LODGE\nTHANK YOU FOR YOU BOOKING ON ROOM {room}\nYOUR BOOKING CODE IS {code}\n KEEP IN SAFE\nWelcome to Sijura Lodge\nCome,Stay and Enjoy'
+            try:
+                send_email(email,sub,html,context)
+                send_sms(phone[1:],message)
+                messages.success(request,'Booked Successful Check your Email  to see your booking code ⚠️ dont loose the code its Important')
+                return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+            except:
+                messages.error(request,'message didnt sent check your connection')
+                return HttpResponseRedirect(request.META.get('HTTP_REFERER')) 
  except Exception as e:
      messages.error(request,e)
      return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
@@ -285,5 +297,18 @@ def cancel_book(request,id):
     rev = Reservation.objects.filter(id=id).update(cancel_book=True,booked_on=today)
     # print(rev)
     Rooms.objects.filter(id=rec.room_id).update(booked=False)
-    
+     
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
+
+def txt():
+
+    f = User.objects.all()[0]
+    print(datetime.datetime.now().date())
+    print(f)
+    
+    
+    
+    
+    

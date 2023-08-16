@@ -1,6 +1,6 @@
 from django.db import models
 
-
+from django.db.models import Q,Sum
 # Create your models here.
 
 
@@ -81,12 +81,13 @@ class Reservation(models.Model):
     reserved = models.BooleanField(default=False)
     booked = models.BooleanField(default=False) 
     booked_on = models.DateField(default=today,blank=True,null=True)
+    view_booked = models.BooleanField(default=False)
     Check_Out = models.BooleanField(default=False)
     cancel_book = models.BooleanField(default=False)
     cancel_book_on = models.DateField(blank=True,null=True)
     
     discount = models.IntegerField(default=0,blank=True,null=True)
-    payment = models.CharField(choices=PAID_CHOICE,max_length=50,blank=True,null=True)
+    # payment = models.CharField(choices=PAID_CHOICE,max_length=50,blank=True,null=True)
     paid_on = models.DateField(blank=True,null=True)
     update_at = models.DateField(default=today,blank=True,null=True)
      
@@ -96,26 +97,60 @@ class Reservation(models.Model):
     def get_amount(self):
         
         if self.Check_Out==False: 
-            year,month,day = str(self.Date_Check_In).split('-')
-           
-            d = datetime.datetime(int(year),int(month),int(day)).date()
-            days = datetime.datetime.now().date()
-
             
-            days = days-d
+            
+            
+            year,month,day = str(self.Date_Check_In).split('-')
+            
+            d = datetime.datetime(int(year),int(month),(int(day))).date()
          
-            if (str(days).split(' ')[0]) != '0:00:00':
+            days = datetime.datetime.now().date()
+            dates = datetime.datetime.now().date()
+            today = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            years,months,daz = str(dates).split('-')
+            
+            dt = datetime.datetime(int(years),int(months),(int(daz)),10,00,00).strftime('%Y-%m-%d %H:%M:%S')
+            
+            
+            
+            # if today >  dt:
+            #     print("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
+            # else:
+            #     print("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
+
+            # print(dt)
+            # print(today-dt)
+            days = days-d
+            # print(days)
+            if today > dt:
+             if (str(days).split(' ')[0]) != '0:00:00':
                 
             
             
-                self.days = int(str(days).split(' ')[0])
+                self.days = int(str(days).split(' ')[0])+1
+                # print("&&&&&&&&&&&&&&&&&")
+                # print(self.days)
                 
                 self.amount = (self.room.category.price * self.days)-self.discount
                 
                 
                 return self.amount
-            else:
+             else:
                 return  self.room.category.price * 1
+            else:
+                
+                if (str(days).split(' ')[0]) != '0:00:00':
+                
+            
+            
+                    self.days = int(str(days).split(' ')[0])
+                    
+                    self.amount = (self.room.category.price * self.days)-self.discount
+                    
+                    
+                    return self.amount
+                else:
+                 return  self.room.category.price * 1
     
     def __str__(self):
         
@@ -125,7 +160,7 @@ class Reservation(models.Model):
 class Booking(models.Model):
 
     Name = models.CharField(max_length=20)
-    Phone = models.IntegerField(default=0)
+    Phone = models.CharField(max_length=11)
     Email = models.EmailField(max_length=40)
     room = models.ForeignKey(Rooms,on_delete=models.CASCADE)
     days_of_staying = models.IntegerField(default=0)
@@ -141,16 +176,18 @@ class Booking(models.Model):
 class Billing(models.Model):
     reservation = models.ForeignKey(Reservation,on_delete=models.CASCADE)
     amount = models.IntegerField(default=0)
-    status = models.CharField(max_length=50)
-    paid_on = models.DateField(default=today)
+    total_paid = models.IntegerField(default=0)
+    paid_on = models.DateField(null=True,blank=True)
+    created_at = models.DateField(default=today)
     
     @property
     def total_remain(self):
         if self.reservation.Check_Out==False:
-            self.remain = self.amount - self.reservation.get_amount
-        
-        
-            print(self.remain)
+            # b = Billing.objects.filter(reservation_id=self.reservation.id).order_by('-created_at').first()
+            
+            # self.remain = Billing.objects.filter(reservation_id=self.reservation.id).aggregate(Sum('amount'))['amount__sum'] - self.reservation.get_amount
+            self.remain = self.total_paid - self.reservation.get_amount
+          
             
             return self.remain
         else:
@@ -159,11 +196,18 @@ class Billing(models.Model):
     @property
     def status(self):
     
+      
+      if self.reservation.Check_Out == False:
         if '-' in str(self.total_remain):
             
             return 'DEBT'
+        elif int(self.total_remain) > 0:
+            return 'CREDICT'
         else:
-            return 'EXCESS'
+            return 'PAID'
+        
+      else:
+          return "CHECKOUT"
         
     
    

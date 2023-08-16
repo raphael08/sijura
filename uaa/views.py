@@ -202,6 +202,27 @@ def blockuser(request,pk):
        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
+
+@login_required(login_url='/uaa/')     
+def unblockuser(request,pk):
+       
+     
+      try:
+         u = User.objects.filter(id=pk).filter(is_active='False')
+         if u:      
+            User.objects.filter(id=pk).update(is_active='True')
+            messages.success(request,'Unblock successful')
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER')) 
+         else:
+            User.objects.filter(id=pk).update(is_active='False') 
+            messages.success(request,'Activation successful') 
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+      except: 
+       messages.error(request,'Something went Wrong')
+       return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
+
 @login_required(login_url='/uaa/')   
 def deleteroles(request,pk):
    try: 
@@ -215,7 +236,7 @@ def deleteroles(request,pk):
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 @login_required(login_url='/uaa/')
 def reset_password(request,pk):
-   password = make_password("@DIT123")
+   password = make_password("sijura123")
    User.objects.filter(id=pk).update(password=password)
    messages.success(request,'Password reseted successful')
    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))

@@ -22,22 +22,22 @@
                     <div class="dropdown for-notification">
                         <button class="btn btn-secondary dropdown-toggle" type="button" id="notification" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fa fa-bell"></i>
-                            <span class="count bg-danger">5</span>
+                            <span class="count bg-danger book"></span>
                         </button>
                         <div class="dropdown-menu" aria-labelledby="notification">
-                            <p class="red">You have 3 Notification</p>
-                            <a class="dropdown-item media bg-flat-color-1" href="#">
+                            <p class="reds"></p>
+                            <a class="dropdown-item media bg-flat-color-1" href="/admins/viewBook">
                             <i class="fa fa-check"></i>
-                            <p>Server #1 overloaded.</p>
+                            <p>View</p>
                         </a>
-                            <a class="dropdown-item media bg-flat-color-4" href="#">
+                            {% comment %} <a class="dropdown-item media bg-flat-color-4" href="#">
                             <i class="fa fa-info"></i>
                             <p>Server #2 overloaded.</p>
                         </a>
                             <a class="dropdown-item media bg-flat-color-5" href="#">
                             <i class="fa fa-warning"></i>
                             <p>Server #3 overloaded.</p>
-                        </a>
+                        </a> {% endcomment %}
                         </div>
                     </div>
 
@@ -100,7 +100,7 @@
 
                         <a class="nav-link" href="#"><i class="fa fa-cog"></i> Settings</a>
 
-                        <a class="nav-link" href="#"><i class="fa fa-power-off"></i> Logout</a>
+                        <a class="nav-link" href="/uaa/logout"><i class="fa fa-power-off"></i> Logout</a>
                     </div>
                 </div>
 
@@ -128,4 +128,44 @@
         </div>
 
     </header><!-- /header -->
-    <!-- Header-->
+   <script>
+   
+    setInterval(function() {
+    
+
+    fetch(`/admins/notification`).then(function (response){
+                                return response.json().then(
+                                  function(data){
+                                    
+                                    var book = document.querySelector('.book');
+                                    var books = document.querySelector('.reds');
+                                    book.textContent = data['book'];
+                                    books.textContent =`You have ${data['book']} New Booking`
+                                    console.log(data['book']);
+
+                                  });
+    });
+
+    
+
+    },1000);                       
+    </script>
+
+    {% comment %} <script>
+                setInterval(function() {
+              
+                fetch(`/admins/monthReportSent`).then(function (response){
+                                return response.json().then(
+                                  function(data){   
+                                    console.log(data['status']);
+                                    ///if (data['status'] === true){
+                                        
+                                    //}
+
+                                  });
+    });
+    
+    },3000);
+    
+    </script> {% endcomment %}
+ 
