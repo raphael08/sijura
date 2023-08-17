@@ -7,7 +7,7 @@ dj_database_url==2.0.0
 psycopg2==2.9.6
 pillow==9.5.0
 apscheduler==3.10.1
-xhtml2pdf==0.2.10
+xhtml2pdf
 scikit-learn==1.2.2
 matplotlib==3.7.1
 opencv-contrib-python==4.7.0.72
