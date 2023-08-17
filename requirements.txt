@@ -8,8 +8,8 @@ psycopg2==2.9.6
 pillow==9.5.0
 apscheduler==3.10.1
 xhtml2pdf
-scikit-learn==1.2.2
-matplotlib==3.7.1
+scikit-learn
+matplotlib
 opencv-contrib-python==4.7.0.72
 opencv-python==4.8.0.74
 opencv-python-headless==4.7.0.72
