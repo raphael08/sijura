@@ -94,6 +94,7 @@
                     </a>
 
                     <div class="user-menu dropdown-menu">
+                    <a class="nav-link" href="#"><i class="fa fa-user"></i> <b>{{request.user.first_name}}</b></a>
                         <a class="nav-link" href="#"><i class="fa fa-user"></i> My Profile</a>
 
                         <a class="nav-link" href="#"><i class="fa fa-user"></i> Notifications <span class="count">13</span></a>
@@ -128,6 +129,8 @@
         </div>
 
     </header><!-- /header -->
+
+     {% include 'includes/message.html' %}
    <script>
    
     setInterval(function() {

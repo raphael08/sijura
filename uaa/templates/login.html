@@ -83,6 +83,7 @@
             <div class="col-md-4 col-md-4 col-sm-4 col-xs-12">
                 <div class="text-center m-b-md custom-login">
                   <br><br>
+                  
                     <h3 style="color:white">PLEASE LOGIN TO SIJURA</h3>
                     <p style="color:white">Come,Stay and Enjoy!</p>
                 </div>
@@ -102,7 +103,26 @@
                             </div>
                             
                             <button class="btn btn-success btn-block loginbtn" type="submit">Login</button>
-                            <a class="btn btn-default btn-block" href="#">Register</a>
+                            <a class="btn btn-default btn-block" href="/uaa/detect">Login with face</a>
+                             {% if messages %}
+
+    
+    
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        window.setTimeout(function() {
+            $(".alert").fadeTo(500, 0).slideUp(500, function(){
+                $(this).remove();
+            });
+        }, 3000);
+    </script>
+    
+    {% for message in messages %}
+            <p style="color:black">{{ message }}</p>
+       
+    {% endfor %}
+{% endif %}
                         </form>
                     </div>
                 </div>
@@ -111,7 +131,7 @@
         </div>
         <div class="row">
             <div class="col-md-12 col-md-12 col-sm-12 col-xs-12 text-center">
-                <p>Copyright © 2018 <a href="https://colorlib.com/wp/templates/">Colorlib</a> All rights reserved.</p>
+                {% comment %} <p>Copyright © 2018 <a href="https://colorlib.com/wp/templates/">Colorlib</a> All rights reserved.</p> {% endcomment %}
             </div>
         </div>
     </div>

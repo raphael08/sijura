@@ -874,3 +874,8 @@ def viewBook(request):
         
     
     return redirect('/admins/booking_record')
+
+
+
+
+
