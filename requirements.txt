@@ -9,6 +9,6 @@ psycopg2
 pillow
 apscheduler
 xhtml2pdf
-opencv-python
 scikit-learn
 matplotlib
+opencv-contrib-python
