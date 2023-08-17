@@ -1,4 +1,4 @@
-django==4.2
+django
 gunicorn
 twilio==8.5.0
 python-decouple==3.8
