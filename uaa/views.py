@@ -100,7 +100,7 @@ def adduser(request):
                   cv2.imwrite(BASE_DIR+'/ml/dataset/user.'+str(id)+'.'+str(sampleNum)+'.jpg', gray[y:y+h,x:x+w])
                   
                   cv2.rectangle(img,(x,y),(x+w,y+h), (0,255,0), 2)
-                  cv2.waitKey(250)
+                  cv2.waitKey(1000)
                cv2.imshow("Face",img)
                cv2.waitKey(1)
                if(sampleNum>35):
@@ -521,8 +521,9 @@ def detect(request):
         if(cv2.waitKey(1) == ord('q')):
             break
         elif(userId != 0):
+          u = User.objects.filter(id=userId).exists()
+          if u:
             u = User.objects.get(id=userId)
-            
             user = auth.authenticate(request, username=u.username, password=password)
             if user is not None:
              auth.login(request,user)
@@ -533,7 +534,11 @@ def detect(request):
             else:
              messages.error(request,'user not recoginized')
              return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-            # return redirect('/records/details/'+ str(userId))
+          else:
+              
+             messages.error(request,'No user Information')
+             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+              # return redirect('/records/details/'+ str(userId))
 
     cam.release()
     cv2.destroyAllWindows()
