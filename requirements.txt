@@ -11,3 +11,4 @@ apscheduler
 xhtml2pdf
 opencv-python
 scikit-learn
+matplotlib
