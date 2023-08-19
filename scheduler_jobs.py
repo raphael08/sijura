@@ -185,10 +185,12 @@ def birthday():
         else:
         # print("happyday")
         #send_sms(629967879,'To the woman who brings light into my life every day, happy birthday and may your day be as radiant as your smile......says Rex Bey')
-            EmailSent.objects.create(date=days,sent=True)
-            send_sms(629967870,'To the woman who brings light into my life every day, happy birthday and may your day be as radiant as your smile......says Rex Bey')
-            send_sms(629967870,'Angalia kwenye begi la kijeshi kuna mfuko ufungue... I LOVE YOU  HAPPY BIRTHDAY MYLOVE ')
-            send_sms(656569880,'SENT')
+            # EmailSent.objects.create(date=days,sent=True)
+            # send_sms(629967870,'To the woman who brings light into my life every day, happy birthday and may your day be as radiant as your smile......says Rex Bey')
+            # send_sms(629967870,'Angalia kwenye begi la kijeshi kuna mfuko ufungue... I LOVE YOU  HAPPY BIRTHDAY MYLOVE ')
+            # send_sms(656569880,'SENT')
+            
+            print('****************')
         
         
     
