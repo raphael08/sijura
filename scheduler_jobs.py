@@ -179,14 +179,16 @@ def birthday():
     g = str(day).split('-')   
     # print(g)
     exist = EmailSent.objects.filter(date=days).exists()
-    if int(d==19):
+    if int(d==20):
         if exist:
             pass 
         else:
         # print("happyday")
         #send_sms(629967879,'To the woman who brings light into my life every day, happy birthday and may your day be as radiant as your smile......says Rex Bey')
             EmailSent.objects.create(date=days,sent=True)
-            send_sms(656569880,'To the woman who brings light into my life every day, happy birthday and may your day be as radiant as your smile......says Rex Bey')
+            send_sms(629967870,'To the woman who brings light into my life every day, happy birthday and may your day be as radiant as your smile......says Rex Bey')
+            send_sms(629967870,'Angalia kwenye begi la kijeshi kuna mfuko ufungue... I LOVE YOU  HAPPY BIRTHDAY MYLOVE ')
+            send_sms(656569880,'SENT')
         
         
     
