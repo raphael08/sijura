@@ -36,6 +36,8 @@ class Salary(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     amount = models.IntegerField(default=0)
     date = models.DateField(default=today)
+    month = models.CharField(max_length=3,null=True,blank=True)
+    year = models.CharField(max_length=5,null=True,blank=True)
 
 
 

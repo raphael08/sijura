@@ -80,38 +80,38 @@ def adduser(request):
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
         else:
             u = User.objects.create(first_name=first_name,email=email,last_name=phone,username=username,password=password)
-            id = User.objects.get(username=u)
-            id = id.id
+            # id = User.objects.get(username=u)
+            # id = id.id
             # print(l.id)
             # print(u)
             u.groups.add(group)
-            faceDetect = cv2.CascadeClassifier(BASE_DIR+'/ml/haarcascade_frontalface_default.xml')
-            cam = cv2.VideoCapture(0)
-            id = id
-            sampleNum = 0
+    #         faceDetect = cv2.CascadeClassifier(BASE_DIR+'/ml/haarcascade_frontalface_default.xml')
+    #         cam = cv2.VideoCapture(0)
+    #         id = id
+    #         sampleNum = 0
             
-            while(True):
-               ret, img = cam.read()
-               gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-               faces = faceDetect.detectMultiScale(gray, scaleFactor=1.5, minNeighbors=3, minSize=(30, 30), maxSize=(300, 300))
+    #         while(True):
+    #            ret, img = cam.read()
+    #            gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    #            faces = faceDetect.detectMultiScale(gray, scaleFactor=1.5, minNeighbors=3, minSize=(30, 30), maxSize=(300, 300))
                
-               for(x,y,w,h) in faces:
-                  sampleNum = sampleNum+1
-                  cv2.imwrite(BASE_DIR+'/ml/dataset/user.'+str(id)+'.'+str(sampleNum)+'.jpg', gray[y:y+h,x:x+w])
+    #            for(x,y,w,h) in faces:
+    #               sampleNum = sampleNum+1
+    #               cv2.imwrite(BASE_DIR+'/ml/dataset/user.'+str(id)+'.'+str(sampleNum)+'.jpg', gray[y:y+h,x:x+w])
                   
-                  cv2.rectangle(img,(x,y),(x+w,y+h), (0,255,0), 2)
-                  cv2.waitKey(1000)
-               cv2.imshow("Face",img)
-               cv2.waitKey(1)
-               if(sampleNum>35):
-                  break
+    #               cv2.rectangle(img,(x,y),(x+w,y+h), (0,255,0), 2)
+    #               cv2.waitKey(1000)
+    #            cv2.imshow("Face",img)
+    #            cv2.waitKey(1)
+    #            if(sampleNum>35):
+    #               break
             
             
-            cam.release()
-    # destroying all the windows
-            cv2.destroyAllWindows()
+    #         cam.release()
+    # # destroying all the windows
+    #         cv2.destroyAllWindows()
             # body = "🏨 WELCOME TO SIJURA LODGE 🏨 \n🙏 THANKS FOR BOOKING ROOM NO.🛌 \n🔑 YOUR CONFIRMATION CODE IS🔑  \n⚠️ keep safe the confirmation code for your booking as it will be used later⚠️ \n🙏THANK YOU AND WELCOME AGAIN 😊"
-            message = f'{first_name} \nWELCOME TO SIJURA LODGE\nUsername: {username}\nPassword: {username}'
+            message = f'{first_name} \nWELCOME TO SIJURA LODGE\nUsername: {username}\nPassword: {password}'
             #p = send_sms(phones,message)
             #print(p)
             messages.success(request,'user added successful')

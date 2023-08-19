@@ -741,13 +741,57 @@ def deleteExpenses(request,id):
     
     
 def salary(request):
+    user = User.objects.exclude(is_superuser=True)
     
-    
-    bil = Salary.objects.all()
-    
-    return render(request,'salary.html',{'bil':bil})
+    bil = Salary.objects.all().order_by('-id')
+    date = datetime.datetime.now().year
+    month = [1,2,3,4,5,6,7,8,9,10,11,12]
+    year = []
+    for i in range(2023,date+1):
+        year.append(i)
+    print(year)
+    return render(request,'salary.html',{'bil':bil,'user':user,'year':year,'month':month})
 
 
+def addSalary(request):
+ try:
+  if request.method == 'POST':   
+    user = request.POST.get('user') 
+    amount = request.POST.get('amount')
+    year = request.POST.get('year')
+    month = request.POST.get('month')
+    
+    u = Salary.objects.filter(user_id=user).exists()
+    l = Salary.objects.filter(month=month).exists()
+    k = Salary.objects.filter(year=year).exists()
+    
+    if u and l and k:
+      messages.error(request,"Salary with User exists")
+      return HttpResponseRedirect(request.META.get('HTTP_REFERER')) 
+    else : 
+        Salary.objects.create(user_id=user,amount=amount,year=year,month=month)
+    
+        messages.success(request,"success")
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+ except Exception as e:
+     messages.error(request,e)
+     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
+
+def deleteSalary(request,id):
+ try:   
+    Salary.objects.filter(id=id).delete()
+    
+    messages.success(request,"success")
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+ except Exception as e:
+     messages.error(request,e)
+     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+ 
+ 
+ 
+ 
 def booking_record(request):
     
     book = Reservation.objects.filter(booked=True)

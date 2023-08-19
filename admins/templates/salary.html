@@ -48,11 +48,11 @@
                                         <tr>
                                             <th>Name</th>
                                             <th>Amount</th>
-                                            <th>date</th>
-                                            {% comment %} <th>Amount Paid</th>
-                                            <th>Paid On</th>
-                                             <th>Status</th>
-                                           <th>Debt/Credit</th> {% endcomment %}
+                                            
+                                             <th>Month</th>
+                                            <th>year</th>
+                                             <th>date</th>
+                                            
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -65,7 +65,15 @@
                                             <td>{{rooms.amount}}
                                             {% comment %} <br>{{rooms.date | date:"Y-m-d"}} {% endcomment %}
                                             </td>
-                                             <td>{{rooms.date | date:"Y-m-d"}}
+                                             <td>{{rooms.month}}
+                                            
+                                             
+                                             </td>
+                                              <td>{{rooms.year}}
+                                            
+                                             
+                                             </td>
+                                              <td>{{rooms.date | date:"Y-m-d"}}
                                             
                                              
                                              </td>
@@ -231,10 +239,10 @@
                             </div>
                             <div class="modal-body">
                                 <p>
-                                    Are you Sure YOu want to Delete the Records
+                                    Are you Sure You want to Delete the Records
                                 </p>
                             </div>
-                            <form method='POST' action="/admins/deleteBill/{{rooms.id}}">
+                            <form method='POST' action="/admins/deleteSalary/{{rooms.id}}">
                                 {% csrf_token %}
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
@@ -322,28 +330,56 @@
                     <div class="modal-dialog modal-lg" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="mediumModalLabel">Add Payment</h5>
+                                <h5 class="modal-title" id="mediumModalLabel">Add Salary</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
                             <div class="modal-body">
                                 
-                                    <form method='POST' action='/admins/addBill'>
+                                    <form method='POST' action='/admins/addSalary'>
                                         {% csrf_token %}
                                     {% comment %} <div class="col col-md-3"><label for="email-input" class=" form-control-label">Email Input</label></div> {% endcomment %}
-                                    <div class="col-12 col-md-6"><input type="number" min="0" value="0" id="text-input" name="amount" placeholder="Amount Paid" class="form-control" required></div>
+                                    <div>
+                                    
+                                    <div class="col-12 col-md-6"><input type="number" min="0" value="0" id="text-input" name="amount" placeholder="Amount Paid" class="form-control" required>
+                                    <small>Amount</small>
+                                    </div>
 
                                     <div class="col-12 col-md-6">
-                                    <select name="room" id="select" class="form-control">
+                                    <select name="user" id="select" class="form-control">
                                     
-                                    {% for g in b %}
-                                    <option value="{{g.reservation_id}}">Room {{g.reservation__room__number}}</option>
+                                    {% for user in user %}
+                                    <option value="{{user.id}}"> {{user.first_name}}</option>
                                  
                                     {% endfor %}
                                 </select>
+                                <small>Staff</small>
+</div>
+<br><br>
+<div>
+                                 <div class="col-12 col-md-6">
+                                    <select name="month" id="select" class="form-control">
                                     
-                                    {% comment %} <input type="phone" id="text-input" name="phone" placeholder="Enter Phone Number" class="form-control"><small class="help-block form-text">Please enter Staff Phone Number</small></div>
+                                    {% for month in month %}
+                                    <option value="{{month}}"> {{month}}</option>
+                                 
+                                    {% endfor %}
+                                </select>
+                                   <small>Month</small> 
+                               </div>
+
+                                    <div class="col-12 col-md-6">
+                                    <select name="year" id="select" class="form-control">
+                                    
+                                    {% for year in year %}
+                                    <option value="{{year}}"> {{year}}</option>
+                                 
+                                    {% endfor %}
+                                </select>
+                                    <small>Year</small>
+                               </div>     
+                               {% comment %} <input type="phone" id="text-input" name="phone" placeholder="Enter Phone Number" class="form-control"><small class="help-block form-text">Please enter Staff Phone Number</small></div>
 
                                     <div class="col-12 col-md-4"><input type="email" id="email-input" name="email" placeholder="Enter Email" class="form-control"><small class="help-block form-text">Please enter Staff Email Number</small></div> {% endcomment %}
                                     

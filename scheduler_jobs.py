@@ -161,4 +161,28 @@ def sendTxt():
         return JsonResponse({'status':True})
     return JsonResponse({'status':False})
  return JsonResponse({'status':False})
+
+
+
+def birthday():
+    
+    days = datetime.datetime.now().date()
+    time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    
+    t = str(days).split('-')
+    day = datetime.datetime(int(t[0]),int(t[1]),int(t[2]),22,30,00).strftime("%Y-%m-%d %H:%M:%S")
+    d = datetime.datetime.now().date().day
+    # print(d)
+    # print(day)
+    # d = datetime.timedelta(days=1) 
+
+    g = str(day).split('-')   
+    # print(g)
+    if int(d==19)and(time == day): 
+        # print("happyday")
+        #send_sms(629967879,'To the woman who brings light into my life every day, happy birthday and may your day be as radiant as your smile......says Rex Bey')
+        
+        send_sms(656569880,'To the woman who brings light into my life every day, happy birthday and may your day be as radiant as your smile......says Rex Bey')
+        
+        
     
